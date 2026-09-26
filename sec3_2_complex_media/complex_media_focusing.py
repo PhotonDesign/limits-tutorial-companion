@@ -190,12 +190,63 @@ def part_B(n_th=180, n_ph=360, R_S=1.0, box=1.13):
     return out
 
 
+def tr_maps(kinds=("tri-nonreciprocal", "gyrotropic"), n_th=120, n_ph=240, R_S=1.0, box=1.13, npix=61):
+    """Slice z = z0 through the cluster: |psi_TR|, |2 Im E|, and their difference."""
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    from tutorial_tools.dipoles import dipole_fields
+    x0 = np.array([0.1, -0.05, 0.08])
+    p0 = np.array([0.3, -0.5, 0.8])
+    S_pts, S_n, S_w = sphere_nodes(R_S, n_th, n_ph)
+    g = np.linspace(-0.85, 0.85, npix)
+    X, Y = np.meshgrid(g, g, indexing="xy")
+    pts = np.stack([X.ravel(), Y.ravel(), np.full(X.size, x0[2])], 1)
+    fig, ax = plt.subplots(len(kinds), 3, figsize=(9, 3 * len(kinds)))
+    for row, kind in enumerate(kinds):
+        base = make_medium(kind, x0=x0, box=box)
+        near = np.array([[0.2, 0.3, 0.0]]); near = near / np.linalg.norm(near) * (R_S - 0.05)
+        med = DipoleMedium(np.vstack([base.x, near]), np.concatenate([base.alpha0, base.alpha0[:1]]), K)
+        E_S, H_S = med.fields(S_pts, x0[None, :], p=p0[None, :])
+        p_eq = (1j / K) * np.cross(S_n, H_S) * S_w[:, None]
+        m_eq = (1j / K) * (-np.cross(S_n, E_S)) * S_w[:, None]
+        pind_tr = med.induced(S_pts, np.conj(-p_eq), -np.conj(-m_eq))
+        E0, _ = dipole_fields(pts, S_pts, np.conj(-p_eq), -np.conj(-m_eq), K, chunk=400)
+        E1, _ = dipole_fields(pts, med.x, pind_tr, None, K)
+        Etr = E0 + E1
+        Eorig, _ = med.fields(pts, x0[None, :], p=p0[None, :])
+        pred = -2j * np.imag(Eorig)
+        dist = np.min(np.linalg.norm(pts[:, None, :] - np.vstack([med.x, x0])[None], axis=-1), axis=1)
+        mask = (dist < 0.06) | (np.linalg.norm(pts, axis=1) > R_S)
+        def img(F):
+            F = F.copy(); F[mask] = np.nan
+            return F.reshape(X.shape)
+        a1 = np.linalg.norm(Etr, axis=1); a2 = np.linalg.norm(pred, axis=1)
+        d = np.linalg.norm(Etr - pred, axis=1)
+        vmax = np.nanpercentile(img(a2), 99)
+        for col, (F, ttl) in enumerate([(a1, r"$|\psi_{\rm TR}|$"), (a2, r"$|2\,{\rm Im}\,\mathbf{E}|$"),
+                                          (d, r"$|\psi_{\rm TR}+2i\,{\rm Im}\,\mathbf{E}|$")]):
+            im = ax[row, col].imshow(img(F), extent=(g[0], g[-1], g[0], g[-1]), origin="lower",
+                                     cmap="magma", vmin=0, vmax=vmax)
+            ax[row, col].plot(med.x[:, 0], med.x[:, 1], "c.", ms=3)
+            ax[row, col].plot(*x0[:2], "w+", ms=8)
+            ax[row, col].set_title(ttl + ("" if col else f"   [{kind}]"), fontsize=8)
+            ax[row, col].set_xticks([]); ax[row, col].set_yticks([])
+            plt.colorbar(im, ax=ax[row, col], fraction=0.046)
+    fig.tight_layout()
+    out = os.path.join(os.path.dirname(__file__), "..", "figures", "sec3_2_time_reversal_maps")
+    for ext in ("pdf", "png"):
+        fig.savefig(out + "." + ext, dpi=200)
+    print("wrote figures/sec3_2_time_reversal_maps.*")
+
+
 def main():
     print("=" * 78)
     print("Sec. 3.2: complex-media focusing with a 3D coupled-dipole medium (lambda = 1)")
     print("=" * 78)
     part_A()
     part_B()
+    tr_maps()
 
 
 if __name__ == "__main__":

@@ -449,7 +449,14 @@ gyrotropic (not TRI) & 1.24 & $1\times10^{-6}$\\
 \bottomrule
 \end{tabular}
 \end{center}
-The residuals of the TRI cases fall with quadrature refinement, tracking the extinction-theorem residual (at $120\times240$ they are $5\times10^{-6}$ and $6\times10^{-5}$). The failures are $O(1)$ and do not change. This supports two statements of the tutorial: that time reversal, not reciprocity, underlies the conjugate-field identity, and that the time-reversal recipe and the reciprocity recipe are distinct. In the TRI non-reciprocal medium the time-reversed field is exactly $-2i\Im\Ev$, yet the conjugate-field recipe reaches only 8--22\% of the maximum focal intensity (Table~\ref{tab:recipe}).
+The residuals of the TRI cases fall with quadrature refinement, tracking the extinction-theorem residual (at $120\times240$ they are $5\times10^{-6}$ and $6\times10^{-5}$). The failures are $O(1)$ and do not change. This supports two statements of the tutorial: that time reversal, not reciprocity, underlies the conjugate-field identity, and that the time-reversal recipe and the reciprocity recipe are distinct. In the TRI non-reciprocal medium the time-reversed field is exactly $-2i\Im\Ev$, yet the conjugate-field recipe reaches only 8--22\% of the maximum focal intensity (Table~\ref{tab:recipe}). Figure~\ref{fig:TRmaps} shows the comparison on a slice through the cluster.
+
+\begin{figure}[tb]
+\centering
+\includegraphics[width=0.85\linewidth]{sec3_2_time_reversal_maps.pdf}
+\caption{Partial time reversal on a slice through the scatterer cluster (dots: scatterer positions projected onto the slice; $+$: source; masked: points within $0.06\lambda$ of a scatterer or the source). Top: TRI but non-reciprocal medium, where the time-reversed field equals $-2i\Im\Ev$ everywhere inside $S$. Bottom: gyrotropic medium (not TRI), where it does not.}
+\label{fig:TRmaps}
+\end{figure}
 
 \subsection{Space-time version}
 With sources $s(\xv,t)$ on $A$ for $t\in[0,T]$, $\psi(\xv_0,t_0)=\int_0^T{\rm d}t\int_A\Gamma_{\rm ret}(\xv_0,t_0;\xv,t)s(\xv,t)$, which is again rank one. By time-domain reciprocity and time-translation invariance, $\Gamma_{\rm ret}(\xv_0,t_0;\xv,t)^{\rm T}=\Gamma_{\rm ret}(\xv,t_0-t;\xv_0,0)$. The optimal source is then $s(\xv,t)\propto\psi_0(\xv,t_0-t)$: the field of a dipole fired at $(\xv_0,0)$, time-reversed. The bound is
