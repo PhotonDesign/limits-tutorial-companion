@@ -139,3 +139,52 @@ section = "5.2.3"
 script = "sec5_local_constraints/tmatrix_oscillators.py"
 claims = ["[eq:Tosc]", "T-matrix sum rules"]
 owner = "ODM"
+
+[[check]]
+id = "polarizability-q-limits"
+section = "5.4-5.5"
+script = "sec5_4_9_scattering_limits/polarizability_q_limits.py"
+claims = ["Sipe-Kranendonk", "[eq:polar_corr]", "static polarizability bound", "[eq:Q_Thal]", "plasmonic Q = omega/gamma", "energy balance"]
+owner = "FM"
+
+[[check]]
+id = "absorption-scattering-tradeoff"
+section = "5.7"
+script = "sec5_4_9_scattering_limits/absorption_scattering_tradeoff.py"
+claims = ["s_n cross-section formulas", "per-channel absorption maximum", "Andersen inequality"]
+owner = "FM"
+
+[[check]]
+id = "spherical-sum-rules"
+section = "5.7"
+script = "sec5_4_9_scattering_limits/spherical_sum_rules.py"
+claims = ["[eq:KK_scattering]", "Blaschke term", "[eq:sum_rule_sn]"]
+owner = "FM"
+
+[[check]]
+id = "reflection-bounds"
+section = "5.7"
+script = "sec5_4_9_scattering_limits/reflection_bounds.py"
+claims = ["Bode-Fano", "Rozanov", "[eq:KK_reflection]"]
+owner = "FM"
+
+[[check]]
+id = "cloaking-bandwidth"
+section = "5.7"
+script = "sec5_4_9_scattering_limits/cloaking_bandwidth.py"
+claims = ["cloaking bandwidth rule of thumb and examples"]
+owner = "FM"
+
+[[check]]
+id = "sensing-lod"
+section = "5.8"
+script = "sec5_4_9_scattering_limits/sensing_lod.py"
+claims = ["limit of detection", "critical coupling"]
+owner = "FM"
+
+[[check]]
+id = "delay-bandwidth"
+section = "5.9"
+script = "sec5_4_9_scattering_limits/delay_bandwidth.py"
+claims = ["Tucker bound", "time-bandwidth products", "Miller crossover", "metalens bound"]
+owner = "FM"

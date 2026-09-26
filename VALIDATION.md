@@ -71,3 +71,16 @@ Medium: a random 3D cluster of electric point scatterers (Foldy–Lax). The four
 | ⚠ [eq:SRExtInf] | Missing 1/c: ∫σ_ext dω = πω_p²V/(2c) (ratio to the printed form = 1/c) | same |
 | ⚠ [eq:GenDisp], [eq:GenSumRule] | Missing ω′ in the numerator (KK check 1.401 vs 1.743) and dω | same |
 | ⚠ [eq:Tosc] sum rules | With the 2/π prefactor, ∫X dω = (π/2)ω_p² I_V (a single Lorentz oscillator gives 1.5708), violating the printed ≤ ω_p² I_V | `tmatrix_oscillators.py` |
+
+## Secs. 5.4–5.9 Polarizability, Q, cloaking, sensing, delay–bandwidth (`sec5_4_9_scattering_limits/`)
+
+| Claim | Outcome | Script |
+|:--|:--|:--|
+| Sipe–Kranendonk limit; polar_corr; static polarizability bound | Confirmed (lossless spheres reach equality to 4×10⁻¹⁶; Mie → polar_corr as (ka)²) | `polarizability_q_limits.py` |
+| Q_Thal for small resonant spheres; plasmonic Q = ω/γ | Q(ka)³/1.5 = 1.0054 → 1.0001 as ka → 0 (ε∞ = 1). Q = ω/γ holds to 10⁻¹⁰ across 6 structures | same |
+| ⚠ Andersen absorption–scattering tradeoff | As printed, dimensionally inconsistent; σ_abs + σ_sca ≤ λ√(σ_sca D_s/π) is saturated (1.00000000) | `absorption_scattering_tradeoff.py` |
+| ⚠ Spherical-wave sum rule: Blaschke term, KK integrand | The term should be 2ω Σ Im(1/ω_i) (PEC sphere: Σ = −1 exactly); s_n(ω′) inside the integral | `spherical_sum_rules.py` |
+| Bode–Fano ∫ln(1/\|Γ\|)dω ≤ π/RC | Confirmed with random lossless ladders. ⚠ The load is parallel *RC*; Γ ≈ −1 + 2i/(ωRC) | `reflection_bounds.py` |
+| ⚠ Cloaking bandwidth rule of thumb | With τ ≃ 1/Δω: B < λ₀/(2πΔR Q_c) = 1.6×10⁻⁶ % (a factor 2π from the printed form) | `cloaking_bandwidth.py` |
+| ⚠ Limit of detection | Printed formula is 2× the direct solution (ratios 1.95–2.00) | `sensing_lod.py` |
+| ⚠ Tucker delay–bandwidth validity condition; "ΔtΔω ≥ 2" | The condition should be Δω/ω_c ≪ 2Δn/(n_max+n_min) (LP counterexamples +24%, +59%); FWHM products are shape dependent (Gaussian 2.77) | `delay_bandwidth.py` |
