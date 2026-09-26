@@ -37,6 +37,7 @@ Medium: a random 3D cluster of electric point scatterers (Foldy–Lax). The four
 | Far-field bound ∝ LDOS; near-field apertures larger | bound/(2P_rad) = 1.00012 at R = 30λ; 94.8 at R = 0.06λ |
 | [eq:ConjFields] ψ_TR = −2i Im ψ, with **only TRI** required (PEC construction) and no far-field requirement | Scatterer 0.05λ from S: 7×10⁻⁸ (lossless reciprocal) and 1×10⁻⁶ (**TRI non-reciprocal**), converging with quadrature. Lossy: 0.45; gyrotropic: 1.24 |
 | Validity region of [eq:ConjFields] | Holds inside S; outside S the TR field is −Γs₀* (1.7×10⁻⁷) |
+| [eq:CMSTBound] space-time bound (`spacetime_complex_media.py`) | Time-reversed dipole response attains the maximum (1.0000000000) in a dispersive lossy medium; the bound is ∫ over [t₀−T, t₀] (the printed [0,T] holds for t₀ = T; for t₀ = 1.3T it would give 0.61) |
 
 ## Sec. 3.4 Communication channels (`sec3_4_communication_channels/communication_modes.py`)
 

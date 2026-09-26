@@ -464,6 +464,7 @@ With sources $s(\xv,t)$ on $A$ for $t\in[0,T]$, $\psi(\xv_0,t_0)=\int_0^T{\rm d}
     \max|\phi^{\rm T}\psi(\xv_0,t_0)|^2=\int_{t_0-T}^{t_0}{\rm d}\tau\int_A|\psi_0(\xv,\tau)|^2{\rm d}\xv,
 \end{align}
 which reduces to the window $[0,T]$ written in the tutorial when the focal time is the end of the source window, $t_0=T$.
+\numcheck{\code{spacetime\_complex\_media.py}: dispersive, lossy reciprocal dipole cluster, band-limited pulses; the time-reversed dipole response attains the rank-one maximum (ratio $1.0000000000$), which equals $\int_{t_0-T}^{t_0}$; for $t_0=1.3T$ the window $[0,T]$ would give $0.61$ of it}
 
 %=============================================================================
 \section{Index of numerical checks}

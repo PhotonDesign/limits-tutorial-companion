@@ -64,6 +64,13 @@ claims = ["[eq:CMFocusBound0]", "[eq:CMFocusBound]", "[eq:CMTRRecipe]", "general
 owner = "ODM"
 
 [[check]]
+id = "spacetime-complex-media"
+section = "3.2.4"
+script = "sec3_2_complex_media/spacetime_complex_media.py"
+claims = ["[eq:CMSTBound]", "time-reversed dipole response is optimal", "time window [t0-T, t0]"]
+owner = "ODM"
+
+[[check]]
 id = "communication-channels"
 section = "3.4"
 script = "sec3_4_communication_channels/communication_modes.py"

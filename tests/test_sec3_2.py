@@ -28,3 +28,12 @@ def test_time_reversal_identity():
     assert out["tri-nonreciprocal"][0] < 1e-3          # TRI suffices (no reciprocity needed)
     assert out["lossy-reciprocal"][0] > 0.1
     assert out["gyrotropic"][0] > 0.1
+
+
+def test_spacetime_complex_media():
+    import spacetime_complex_media as stcm
+    for t0, bound, eff, shift, plain in stcm.run(verbose=False):
+        assert eff == pytest.approx(1, abs=1e-10)
+        assert shift == pytest.approx(1, abs=1e-10)
+        if abs(t0 - 2.0) > 1e-9:
+            assert abs(plain - 1) > 0.1
