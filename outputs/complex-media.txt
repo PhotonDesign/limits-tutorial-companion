@@ -1,0 +1,33 @@
+==============================================================================
+Sec. 3.2: complex-media focusing with a 3D coupled-dipole medium (lambda = 1)
+==============================================================================
+------------------------------------------------------------------------------
+Part A: focal-intensity bound and optimal currents
+------------------------------------------------------------------------------
+  medium                 aperture                                     recipe eff.  transposed rank-1 check
+  lossless-reciprocal    open near-field patch (z = 0.9, 1.2 x 1.2)    1.00000000  1.00000000      0.0e+00
+  lossless-reciprocal    closed sphere R = 6 (far field)               1.00000000  1.00000000      1.7e-15
+  lossy-reciprocal       open near-field patch (z = 0.9, 1.2 x 1.2)    1.00000000  1.00000000      2.2e-16
+  lossy-reciprocal       closed sphere R = 6 (far field)               1.00000000  1.00000000      0.0e+00
+  tri-nonreciprocal      open near-field patch (z = 0.9, 1.2 x 1.2)    0.21634922  1.00000000      2.2e-16
+  tri-nonreciprocal      closed sphere R = 6 (far field)               0.08424865  1.00000000      2.2e-16
+  gyrotropic             open near-field patch (z = 0.9, 1.2 x 1.2)    0.26459743  1.00000000      4.4e-16
+  gyrotropic             closed sphere R = 6 (far field)               0.23109174  1.00000000      8.9e-16
+
+  LDOS connection (lossless-reciprocal medium, closed spheres of radius R about x0):
+    R =   0.06: bound = 1.293682e+04   bound / (2 P_rad) = 94.782754
+    R =   0.30: bound = 6.255418e+03   bound / (2 P_rad) = 45.830878
+    R =   3.00: bound = 1.381787e+02   bound / (2 P_rad) = 1.012379
+    R =  30.00: bound = 1.365055e+02   bound / (2 P_rad) = 1.000120
+    (-> 1 in the far zone, i.e. bound ∝ radiated power ∝ LDOS; >> 1 for near-field apertures)
+------------------------------------------------------------------------------
+Part B: partial time reversal on a closed surface S (radius 1.00 lambda)
+------------------------------------------------------------------------------
+  lossless-reciprocal    min dist scatterer-to-S 0.050 | extinction thm: inside 4.5e-08, outside 1.7e-07
+                         TR field vs -2i Im E (inside S): rel. err 7.29e-08   | outside S: vs -E 1.7e-07, vs -2i Im E 1.00
+  lossy-reciprocal       min dist scatterer-to-S 0.050 | extinction thm: inside 1.2e-07, outside 2.3e-07
+                         TR field vs -2i Im E (inside S): rel. err 4.50e-01   | outside S: vs -E 9.9e-01, vs -2i Im E 1.41
+  tri-nonreciprocal      min dist scatterer-to-S 0.050 | extinction thm: inside 3.7e-06, outside 3.3e-06
+                         TR field vs -2i Im E (inside S): rel. err 1.08e-06   | outside S: vs -E 1.9e-06, vs -2i Im E 1.00
+  gyrotropic             min dist scatterer-to-S 0.050 | extinction thm: inside 2.1e-07, outside 1.2e-06
+                         TR field vs -2i Im E (inside S): rel. err 1.24e+00   | outside S: vs -E 1.1e+00, vs -2i Im E 1.61

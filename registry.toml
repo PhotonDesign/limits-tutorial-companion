@@ -1,0 +1,134 @@
+# Registry of validation scripts.  Each [[check]] is run by run_all.py; add new checks here
+# (one entry per script) rather than editing run_all.py.
+#
+#   id       short unique name (used for the output log file name)
+#   section  tutorial section number
+#   script   path relative to the repository root
+#   claims   tutorial equations / statements the script tests (tutorial LaTeX labels in [])
+#   owner    "ODM" or "FM" (which author's section)
+
+[[check]]
+id = "power-formula"
+section = "3.1.2"
+script = "sec3_1_free_space_focusing/power_normalization_check.py"
+claims = ["plane-wave z-power P = (2 pi^2/Z0) sum int (k_z/k)|c|^2"]
+owner = "ODM"
+
+[[check]]
+id = "focal-intensity-bounds"
+section = "3.1.2"
+script = "sec3_1_free_space_focusing/focal_intensity_bounds.py"
+claims = ["[eq:cOpt]", "[eq:alphaOpt]", "[eq:OptPowerNorm]", "[eq:OptAmpNorm]", "[eq:TwoPiBound]", "in-plane polarization is optimal", "1.77X"]
+owner = "ODM"
+
+[[check]]
+id = "focal-plane-fields"
+section = "3.1.2-3.1.3"
+script = "sec3_1_free_space_focusing/focal_plane_fields.py"
+claims = ["[eq:E2Paraxial]", "[eq:E2TwoPi]", "[eq:E2optFourPi]", "FWHM / first-zero table (fig:PWFocusingFourPi)", "fig:PWFocusing(d,e)"]
+owner = "ODM"
+
+[[check]]
+id = "fourpi-vsw"
+section = "3.1.3"
+script = "sec3_1_free_space_focusing/fourpi_spherical_waves.py"
+claims = ["only N_1m nonzero at origin", "|N_10(0)| = (2/3) sqrt(3/8pi)", "P_in = 1/(8 Z0 k^2)", "[eq:FourPiBound]", "[eq:N10xy]", "4pi optimum = Im G0"]
+owner = "ODM"
+
+[[check]]
+id = "superoscillation"
+section = "3.1.4"
+script = "sec3_1_free_space_focusing/superoscillation.py"
+claims = ["E >~ 1/delta^2", "E >~ 1/delta^4", "S ~ G^4 (fig:Superres)", "factor-2 reduction ~16X"]
+owner = "ODM"
+
+[[check]]
+id = "spacetime"
+section = "3.1.5"
+script = "sec3_1_free_space_focusing/spacetime_focusing.py"
+claims = ["[eq:ST1d]", "3D Si closed form", "first zero doubles", "faster side-lobe decay"]
+owner = "ODM"
+
+[[check]]
+id = "tutorial-panels"
+section = "3.1"
+script = "sec3_1_free_space_focusing/tutorial_figure_panels.py"
+claims = ["replacement panels for fig:PWFocusing(d,e) and fig:PWFocusingFourPi"]
+owner = "ODM"
+
+[[check]]
+id = "complex-media"
+section = "3.2"
+script = "sec3_2_complex_media/complex_media_focusing.py"
+claims = ["[eq:CMFocusBound0]", "[eq:CMFocusBound]", "[eq:CMTRRecipe]", "generalized-reciprocity recipe (Sec. 3.2.5)", "[eq:ConjFields]", "TRI suffices for the TR identity", "far-field bound ~ LDOS"]
+owner = "ODM"
+
+[[check]]
+id = "communication-channels"
+section = "3.4"
+script = "sec3_4_communication_channels/communication_modes.py"
+claims = ["fig:CommChannels percentages and geometry", "singular-vector roles", "Ky Fan / chain argument"]
+owner = "ODM"
+
+[[check]]
+id = "extinction-symmetry-slab"
+section = "4.1"
+script = "sec4_global_symmetries/extinction_symmetry_slab.py"
+claims = ["extinction symmetry, fig:ExtSym"]
+owner = "ODM"
+
+[[check]]
+id = "extinction-symmetry-dipoles"
+section = "4.1"
+script = "sec4_global_symmetries/extinction_symmetry_dipoles.py"
+claims = ["sigma_ext(k,e) = sigma_ext(-k,e*) for reciprocal scatterers"]
+owner = "ODM"
+
+[[check]]
+id = "tr-field-ratio-bounds"
+section = "4.2"
+script = "sec4_global_symmetries/tr_field_ratio_bounds.py"
+claims = ["two-port envelope (1-R)/(1+R)", "[eq:fTRRatio]"]
+owner = "ODM"
+
+[[check]]
+id = "change-of-basis"
+section = "4.3"
+script = "sec4_global_symmetries/change_of_basis_kirchhoff.py"
+claims = ["S2, A2, E2 matrices", "symmetries preserved under unitary change of basis"]
+owner = "ODM"
+
+[[check]]
+id = "brightness"
+section = "4.4"
+script = "sec4_global_symmetries/brightness_theorem.py"
+claims = ["termwise brightness theorem", "weak majorization", "concentrator 1/N", "TCMT M/N"]
+owner = "ODM"
+
+[[check]]
+id = "vie-conservation-laws"
+section = "5.1"
+script = "sec5_local_constraints/vie_conservation_laws.py"
+claims = ["[eq:OpticalThm]", "[eq:ReacOpticalThm]", "local D-matrix constraints", "domain obliviousness", "constraint count"]
+owner = "ODM"
+
+[[check]]
+id = "material-loss-bounds"
+section = "5.1"
+script = "sec5_local_constraints/material_loss_bounds.py"
+claims = ["[eq:CSBoundML]", "per-channel Mie bounds", "[eq:CSOTBound]", "[eq:DualBounds]"]
+owner = "ODM"
+
+[[check]]
+id = "extinction-sum-rules"
+section = "5.2.1"
+script = "sec5_local_constraints/extinction_sum_rules.py"
+claims = ["[eq:SRExt0]", "[eq:SRExtInf]", "[eq:GenDisp]", "[eq:GenSumRule]"]
+owner = "ODM"
+
+[[check]]
+id = "tmatrix-oscillators"
+section = "5.2.3"
+script = "sec5_local_constraints/tmatrix_oscillators.py"
+claims = ["[eq:Tosc]", "T-matrix sum rules"]
+owner = "ODM"

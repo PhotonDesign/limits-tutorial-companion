@@ -1,0 +1,38 @@
+======================================================================================
+Sec. 5.2.1 extinction sum rules (SI units; frequencies in eV/hbar)
+======================================================================================
+materials: Drude-Lorentz 'silver-like' w_p = 10.296 eV (conductor); Lorentz dielectric w_p = 10.000 eV, chi(0) = 4.4444
+
+A. Quasi-static spheroids (no radiative correction; exactly causal):
+  material    a x b (nm)       L | int s dlam / pi^2 alpha0 | int s dw / (pi wp^2 V/2c)  int s dw / (pi wp^2 V/2) [printed]
+  metal        10 x 10    0.3333 |             1.0000000000 |              1.0000000000                          3.3356e-09
+  metal        30 x 10    0.1087 |             1.0000000000 |              1.0000000000                          3.3356e-09
+  metal        60 x 10    0.0432 |             1.0000000000 |              1.0000000000                          3.3356e-09
+  dielectric   10 x 10    0.3333 |             1.0000000000 |              1.0000000000                          3.3356e-09
+  dielectric   30 x 10    0.1087 |             1.0000000000 |              1.0000000000                          3.3356e-09
+  dielectric   60 x 10    0.0432 |             1.0000000000 |              1.0000000000                          3.3356e-09
+  -> printed SRExtInf is off by exactly 1/c = 3.3356e-09 s/m (dimensionally wrong); corrected form holds.
+     Static rule depends on shape via alpha0 = V/L (conductor); high-frequency rule is shape-independent.
+
+B. Same, with radiative correction alpha/(1 - i k^3 alpha/6pi)  [model caveat, not a tutorial error]:
+  static: int s dlam / pi^2 alpha0 = 0.998086;  high-freq: int s dw / (pi wp^2 V/2c) = 1.9801  (plateau alone gives exactly 1)
+  (point-dipole Thomson plateau sigma_sca -> V^2 wp^4/(6 pi c^4) persists to w_c = 6pi c^3/(V wp^2) = 109 eV; the dipole model is invalid above kR ~ 1, so use Mie for the high-frequency rule)
+
+C. Full Mie theory:
+  silver-like sphere R = 50 nm: (2c/V) int_0^W sigma_ext dw / (pi w_p^2) at W = 5 eV: 0.1943, 12 eV: 0.5350, 30 eV: 0.7868, 100 eV: 0.9342, 400 eV: 0.9835
+  + C/w^2 tail beyond 400 eV (0.0165; sigma w^2 flatness 1.000) -> total = 0.999992   (corrected SRExtInf: 1)
+  lossy Lorentz-dielectric sphere R = 20 nm, pi^2 alpha(0) = 5.9236e+05 nm^3:
+    int sigma_ext d lambda / pi^2 alpha0 = 0.999993   [SRExt0 holds]
+    int sigma_sca d lambda / pi^2 alpha0 = 0.2368   [l.1825 'scattering cross-section' is wrong: it is extinction]
+
+D. GenDisp (l.1793) vs KKRe/KKExt, Lorentz w0 = 1, wp = 1, gamma = 0.3:
+      w   Re h exact  KK with w-prime  GenDisp printed
+   0.50     1.282051         1.282051         1.328373
+   0.90     1.743119         1.743119         1.401135
+   1.50    -0.708215        -0.708215        -0.714847
+   3.00    -0.123438        -0.123438        -0.116755
+
+E. Plasma-frequency weight of nuclei (l.1844): neutrons carry no charge -> contribute exactly 0;
+   Si nucleus/electrons = Z m_e/M = 2.73e-04;  'free proton' m_e/m_p = 5.45e-04
+
+wrote /Users/owen.miller/Projects/0.Old/2024.4-AOP-Tutorial/AOP Tutorial/git/limits-tutorial-companion/figures/sec5_extinction_sum_rules.pdf

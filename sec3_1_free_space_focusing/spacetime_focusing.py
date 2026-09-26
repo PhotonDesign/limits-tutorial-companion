@@ -143,7 +143,9 @@ def main(make_figure=True):
         ax[2].set_xlabel(r"$U/\pi$"); ax[2].set_title("3D, energy norm.", fontsize=9)
         for a in ax:
             a.axhline(0, color="gray", lw=0.5)
-            a.legend(frameon=False, fontsize=7)
+            a.legend(frameon=False, fontsize=7, loc="upper right")
+        ax[0].legend(frameon=False, fontsize=7, loc="upper left")
+        ax[0].set_ylim(-0.3, 1.45)
         ax[0].set_ylabel(r"field at $t=0$ (normalized)")
         fig.tight_layout()
         os.makedirs(FIGDIR, exist_ok=True)

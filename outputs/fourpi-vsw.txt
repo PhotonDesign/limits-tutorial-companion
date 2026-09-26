@@ -1,0 +1,16 @@
+==============================================================================
+Sec. 3.1.3: 4pi focusing with vector spherical waves
+==============================================================================
+1. max |curl M - k N| / |N| (finite differences, several l,m,kinds): 2.0e-10
+2. regular VSWs with l <= 6 having |field(0)| > 1e-6: [(1, -1), (1, 0), (1, 1)]
+     (l,m)=(1,-1): |M(0)| = 8.81e-09, |N(0)| = 0.2303294330  vs (2/3)sqrt(3/(8pi)) = 0.2303294330
+     (l,m)=(1,0): |M(0)| = 1.20e-08, |N(0)| = 0.2303294330  vs (2/3)sqrt(3/(8pi)) = 0.2303294330
+     (l,m)=(1,1): |M(0)| = 8.81e-09, |N(0)| = 0.2303294330  vs (2/3)sqrt(3/(8pi)) = 0.2303294330
+     direction of N_10(0): [0.+0.j 0.+0.j 0.+1.j] (i.e. zhat, times phase i)
+3. P_in of (1/2) N^(2)_10 at R = 3, 30, 300: [0.125 0.125 0.125]  vs 1/(8 Z0 k^2) = 0.1250000000
+4. U(0)/P_in = 0.1061032954 k^2/c  vs 1/(3 pi) = 0.1061032954;  2pi bound 1/(6 pi) = 0.0530516477
+5. Herglotz wave (q = zhat) vs 16 pi^2 k Im G0(x,0) zhat: max rel. diff 7.9e-15
+   Herglotz / N_10^reg ratio: constant = -0.0000000000-36.3721661672j, spread 5.3e-12
+   P_in(Herglotz) from VSW coefficient = 165.36680896;  (2 pi^2/k^2) int |a|^2 dOmega = 165.36680896;  16 pi^3/3 = 165.36680896
+   |E(0)|^2/P_in = 0.4244131816  (x 2pi c/k^2 -> 2.6666666667; 2pi optimum 4/3, 4pi optimum 8/3)
+6. N_10 on equator: z-comp / (i * Eq. N10xy z-comp) max deviation from 1: 5.6e-16; x,y comps max 6.5e-18

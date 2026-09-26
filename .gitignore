@@ -9,3 +9,4 @@ derivations/*.fls
 derivations/*.fdb_latexmk
 derivations/*.synctex.gz
 .DS_Store
+derivations/build.log

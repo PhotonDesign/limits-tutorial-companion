@@ -1,0 +1,4 @@
+wrote panels to /Users/owen.miller/Projects/0.Old/2024.4-AOP-Tutorial/AOP Tutorial/git/limits-tutorial-companion/figures/tutorial_panels
+line code: blue = paraxial / power norm., red = 2pi / amplitude norm., black = 4pi;
+  solid = along the polarization axis, dashed = perpendicular to it (in the focal plane),
+  dotted (right panel) = |E_par|^2 only; black dotted (4pi left) = along the polarization axis.

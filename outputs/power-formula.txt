@@ -1,0 +1,7 @@
+Plane-wave power formula, random complex spectra (both polarizations):
+  sin th = 0.300, seed 0: direct Poynting 2.1317819441e+01  formula 2.1317819441e+01  rel.err 2.2e-16
+  sin th = 0.300, seed 1: direct Poynting 1.7692474852e+01  formula 1.7692474852e+01  rel.err 0.0e+00
+  sin th = 0.800, seed 0: direct Poynting 1.2845123468e+02  formula 1.2845123468e+02  rel.err 6.7e-16
+  sin th = 0.800, seed 1: direct Poynting 1.2686061617e+02  formula 1.2686061617e+02  rel.err 2.2e-16
+  sin th = 0.999, seed 0: direct Poynting 1.6478715080e+02  formula 1.6478715080e+02  rel.err 4.4e-16
+  sin th = 0.999, seed 1: direct Poynting 1.6833116278e+02  formula 1.6833116278e+02  rel.err 4.4e-16

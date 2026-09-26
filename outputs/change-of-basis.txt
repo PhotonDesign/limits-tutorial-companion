@@ -1,0 +1,13 @@
+==============================================================================
+Sec. 4.3  change of basis S_2 = U^T S_1 U and the Kirchhoff example
+==============================================================================
+  A1: max |computed - claimed| = 0.0e+00
+  E1: max |computed - claimed| = 0.0e+00
+  S2: max |computed - claimed| = 1.1e-16
+  A2: max |computed - claimed| = 2.2e-16
+  E2: max |computed - claimed| = 2.2e-16
+  diag(A2) = [0.5 0.5], diag(E2) = [0.5 0.5]  (claim 1/2, 1/2)
+  |S2_12| = 0.500, |S2_21| = 0.500;  S2 symmetric? False
+  U columns: [0.707+0.j    0.   +0.707j], [0.   +0.707j 0.707+0.j   ] -> y/x phase +90 deg and -90 deg (opposite circular handedness): True
+  singular values S1 [1. 0.], S2 [1. 0.]
+  random 5x5 tests (200 each), max violation after transform: lossless 2.0e-15, reciprocal 9.0e-16, TRI 2.7e-15, svals 3.6e-15

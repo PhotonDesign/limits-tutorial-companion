@@ -1,0 +1,40 @@
+==============================================================================
+Sec. 3.1.2  focal-point intensity maxima, units k^2/(2 pi c)
+==============================================================================
+ sin th |    power x    power z |      amp x      amp z | max|quad-closed|  offdiag
+   0.05 |   0.002500   0.000003 |   0.002498   0.000003 |         1.08e-16  3.9e-21
+   0.30 |   0.090033   0.004178 |   0.087975   0.004050 |         4.68e-15  8.0e-19
+   0.50 |   0.250802   0.034295 |   0.234375   0.031250 |         1.36e-14  3.7e-18
+   0.80 |   0.661333   0.277333 |   0.537600   0.204800 |         3.07e-14  1.5e-17
+   0.95 |   1.010935   0.729130 |   0.698873   0.407253 |         9.81e-14  2.5e-17
+   1.00 |   1.333333   1.333333 |   0.750000   0.500000 |         2.56e-13  2.7e-17
+
+Gap (power): x - z = cos(th) sin^2(th) >= 0;  (amplitude): s^2 - 3 s^4/4 >= 0
+  max |(x - z) - cos sin^2| over theta grid: 2.2e-16
+
+Monte-Carlo brute force (random directions + random polarization bases):
+  sin th = 0.5: power 0.2509 (closed 0.2508); amplitude 0.2344 (closed 0.2344)  [MC error ~1/sqrt(N)]
+  sin th = 0.8: power 0.6625 (closed 0.6613); amplitude 0.5380 (closed 0.5376)  [MC error ~1/sqrt(N)]
+  sin th = 1.0: power 1.3385 (closed 1.3333); amplitude 0.7509 (closed 0.7500)  [MC error ~1/sqrt(N)]
+
+Limits:
+  paraxial: power/th^2 = 1.000000, amp/th^2 = 0.999999  (both -> 1)
+  2pi: power = 1.333333 (4/3) -> U/P = k^2/(6 pi c); amp = 0.750000 (3/4); ratio = 1.777778 (16/9)
+  2pi, power normalization: z-pol = 1.333333 = in-plane (all polarizations equal)
+  2pi, amplitude normalization: z-pol = 0.500000 != in-plane 0.75
+  sin th = 0.8: power in-plane = 0.6613  (cf. '0.66' in the FocusingFourPi table)
+
+Amplitude-optimal beam measured per PHYSICAL power (new):
+  sin th = 0.3: per true power 0.090016 (closed 0.090016); per amplitude norm 0.087975 (closed 0.087975)
+  sin th = 0.8: per true power 0.648331 (closed 0.648331); per amplitude norm 0.537600 (closed 0.537600)
+  sin th = 1.0: per true power 1.054688 (closed 1.054688); per amplitude norm 0.750000 (closed 0.750000)
+  at 2pi: 135/128 = 1.054688; power-optimal advantage at equal physical power = 1.2642 (vs 16/9 = 1.7778 across different normalizations)
+
+Reference beams c_p ∝ (k_z/k)^n (x.e_p)^* at 2pi (per physical power):
+  n = -1.0 (power-optimal                 ): 1.333333 (numeric 1.333333);  optimum / this = 1.0000
+  n = -0.5 (aplanatic, uniform pupil      ): 1.209373 (numeric 1.209373);  optimum / this = 1.1025
+  n = +0.0 (amplitude-optimal             ): 1.054688 (numeric 1.054688);  optimum / this = 1.2642
+  n = +0.5 (Dias2020 'Gaussian' reference ): 0.929185 (numeric 0.929185);  optimum / this = 1.4349
+  n = +1.0 (c ∝ k_z/k                     ): 0.829630 (numeric 0.829630);  optimum / this = 1.6071
+
+wrote /Users/owen.miller/Projects/0.Old/2024.4-AOP-Tutorial/AOP Tutorial/git/limits-tutorial-companion/figures/focal_intensity_bounds.pdf

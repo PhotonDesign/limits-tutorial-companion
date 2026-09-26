@@ -1,0 +1,25 @@
+====================================================================================
+Sec. 3.4  communication channels: 16 lambda x 16 lambda arrays (fig:CommChannels)
+====================================================================================
+Paraxial heuristic N_H = A_T A_R/(lambda L)^2: L = 50 -> 26.2;  L = 100 -> 6.55
+
+(a) continuous 16 lambda apertures, L = 50 lambda, midpoint sampling (convergence):
+  dx = 0.50 lambda (32^2 pts): first 12 % = [4.06 4.04 4.04 4.03 4.01 4.   3.99 3.99 3.95 3.88 3.88 3.87]
+      sum first 12 = 47.7 %, first 26 = 88.9 %; #(lambda^2 > lambda_1^2/2) = 24, #(> lambda_1^2/10) = 35
+  dx = 0.40 lambda (40^2 pts): first 12 % = [4.06 4.04 4.04 4.03 4.   4.   3.99 3.99 3.95 3.87 3.87 3.87]
+      sum first 12 = 47.7 %, first 26 = 88.8 %; #(lambda^2 > lambda_1^2/2) = 24, #(> lambda_1^2/10) = 35
+
+(b) Miller's discrete arrays (17 x 17 points on lambda centres), first 12 fractions (%):
+  figure (c)      : [12.09 11.66 11.66 11.24  8.29  8.28  7.96  7.96  5.61  2.51  2.51  2.41]
+  L =  50.0 lambda : [3.23 3.22 3.22 3.22 3.18 3.18 3.18 3.18 3.17 3.17 3.17 3.17]  rms dev 5.705; #(>half of mode 1) = 33
+  L = 100.0 lambda : [12.09 11.66 11.66 11.24  8.29  8.28  7.96  7.96  5.61  2.51  2.51  2.41]  rms dev 0.002; #(>half of mode 1) = 8
+  best-fit separation: L = 99.99 lambda (rms 0.0019 percentage points)
+
+(c) SVD role check on an asymmetric geometry (T is 400 x 1024, not symmetric):
+  reconstruction T = sum lambda_i sigma_l,i sigma_r,i^dag: rel err 4.0e-16
+  T sigma_r,i = lambda_i sigma_l,i (i <= 10): max rel err 3.4e-15
+  crosstalk |sigma_l,j^dag T sigma_r,i - lambda_i delta_ij| / lambda_1 = 1.7e-15
+  energy received, 10 right singular vectors as inputs: 9.844808e-01 = Ky Fan sum 9.844808e-01;  10 random orthonormal inputs: 1.537e-02
+  (inputs live in C^1024 = source space = domain of T; left singular vectors live in C^400 = receiver space, so 'input = right, measurement = left' is the only consistent assignment)
+
+wrote figures/sec3_4_communication_modes.pdf/png

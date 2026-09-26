@@ -1,0 +1,26 @@
+======================================================================================
+Sec. 5.2.3 volume-T-matrix oscillator representation (units w_p = 1)
+======================================================================================
+A. Single Lorentz oscillator T = chi = 1/(1 - w^2 - 0.2 i w) (saturates the f-sum rule):
+   int_0^inf X dw = int w Im chi dw = 1.5707963268 = (pi/2) w_p^2 = 1.5707963268   -> violates printed 'int X <= w_p^2 I_V' by 1.5708x
+   int_0^inf X/w^2 dw = 1.5707963268 = (pi/2) T0 = 1.5707963268
+
+B. Reciprocal quasi-static coupled-dipole T matrix, 18x18, oscillators at w = 2.037 ... 2.127:
+   min eig X over grid = 7.33e-07 (>= 0);  max |Y| = 4.6e-16 (reciprocal -> 0)
+   int X dw        = c I with c = 1.57079633;  max|int X - (pi/2) I| = 8.9e-16
+   int X/w^2 dw    : max|int X/w^2 - (pi/2) T0| / max|T0| = 3.5e-11
+   printed 'int X <= w_p^2 I_V': eigenvalues of int X - I = 0.5708 ... 0.5708 (> 0: VIOLATED)
+   Tosc (2/pi prefactor) reconstruction at w = (1.3+0.25j): max|T_rec - T| / max|T| = 9.5e-16
+
+C. Nonreciprocal gyrotropic Lorentz pixel (w0 = 1, gamma = 0.2, wc = 0.6):
+   min eig (X+Y) = 1.98e-05, min eig (X-Y) = 1.98e-05  (both >= 0: -X <= Y <= X)
+   X real symmetric: |Im X| = 0.0e+00;  Y Hermitian skew: |Y + Y^T| = 0.0e+00, |Re Y| = 0.0e+00, |Im Y| = 0.380
+   w = (1.1+0.3j): Tosc as in tutorial [X + (wi/w)Y] rel. error 3.9e-16;  variant [X + i(wi/w)Y] rel. error 0.72
+   w = (0.4+0.1j): Tosc as in tutorial [X + (wi/w)Y] rel. error 4.2e-16;  variant [X + i(wi/w)Y] rel. error 0.40
+   int X dw diag = [1.57079633 1.57079633 1.57079633] (pi/2 = 1.57079633);  int X/w^2 vs (pi/2)T0: 2.0e-10
+
+   => with the 2/pi prefactor of [Tosc]: int X = (pi/2) w_p^2 I_V and int X/w^2 = (pi/2) T_0 (equalities
+      for a given V; inequalities over a design domain).  Either drop 2/pi (Zhang et al. Eq. 6) or
+      put pi/2 on the right-hand sides.
+
+wrote /Users/owen.miller/Projects/0.Old/2024.4-AOP-Tutorial/AOP Tutorial/git/limits-tutorial-companion/figures/sec5_tmatrix_oscillators.pdf

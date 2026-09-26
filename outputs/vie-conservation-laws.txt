@@ -1,0 +1,47 @@
+====================================================================================
+Sec. 5.1/5.3 conservation laws on a 3D coupled-dipole VIE model (48 pixels, 144 unknowns)
+====================================================================================
+min eig Im Gamma0 = 2.66e-14 (max 9.04e-01);  min eig Im xi = 2.19e-03   [both PSD]
+Gamma0 symmetric: |G0 - G0^T|max = 0.0e+00;  xi nonreciprocal: |xi - xi^T|max = 0.89
+IE solve residual: 1.2e-15
+
+Global constraints (residual / |phi^dag (G0+xi) phi|):
+  phi^dag(G0+xi)phi = -phi^dag psi (complex)           1.6e-16
+  Im: phi^dag(ImG0+Imxi)phi = +Im(psi^dag phi)  [l.587] 0.0e+00   HOLDS
+  Re: phi^dag(ReG0+Rexi)phi = +Re(psi^dag phi)  [l.610,1766 as printed] 0.122     FAILS  (= 2|Re psi^dag phi|/scale = 0.122)
+  Re: phi^dag(ReG0+Rexi)phi = -Re(psi^dag phi)  [sign corrected] 1.2e-16   HOLDS
+  (reciprocal random chi, seed 5: printed-reactive resid 0.036, corrected 6.0e-17, OT 4.0e-16)
+
+Local (pixel-diagonal D) constraints, 48 pixels x 9 D's = 432 complex constraints:
+  max |phi^dag D (G0+xi) phi + phi^dag D psi| / scale = 1.2e-16
+  local real power  Im[phi_i^dag(G0 phi)_i] + phi_i^dag Imxi phi_i = Im(psi_i^dag phi_i): max resid 6.8e-17
+  local reactive    Re[...] + phi_i^dag Rexi phi_i = -Re(psi_i^dag phi_i):          max resid 1.4e-16
+  local reactive with printed sign (+Re):                                          max resid 9.26e-02
+  sum_i local = global: 7.1e-15
+  note: 'local scattering' Im[phi_i^dag (G0 phi)_i] is not sign-definite: min -2.458e+00, max +2.656e+00;
+        'local extinction' min -2.098e+00  (only the sums are positive)
+
+Power identities (omega = k, Z0 = 1, |E0| = 1):
+  P_scat = (w/2) phi^dag ImG0 phi = 0.2740892020;  far-field Poynting flux = 0.2740892020  (rel diff 7.8e-16)
+  P_ext  = (w/2) Im(psi^dag phi)  = 0.5519132527;  forward-amplitude opt. thm = 0.5519132527  (rel diff 0.0e+00)
+  P_abs  = (w/2) phi^dag Imxi phi = 0.2778240507;  (w/2) psi_tot^dag Imchi psi_tot = 0.2778240507
+  P_ext - P_abs - P_scat = -1.1e-16
+
+Footnote l.1677, phi = phi_max = i(|chi|^2/Im chi) psi, chi = -4+1.5i (units w/2):
+  P_ext = 584.000000;  P_ext - P_abs (correct: Im(psi^dag phi) - phi^dag Imxi phi) = 0.0e+00
+  as printed, Im[psi^dag phi - phi^dag (Im xi) phi] = 584.000000  (= P_ext, not 0)  -> NOTATION ERROR
+  on the solved scatterer: printed form gives 0.551913 = P_ext, true P_scat = 0.274089
+
+Domain obliviousness (l.1938-1940): design lattice 48 pixels, scatterer 24 pixels, chi_d = 4+i
+  IE residual |(G0+xi)phi+psi| on V_s: 1.2e-15;  on V_d \ V_s: 2.19  (IE itself fails on V_d)
+  all pixel-local D constraints on V_d: max resid 4.9e-17;  global on V_d: 8.9e-17   HOLD
+  nonlocal D (x in V_s, x' in V_d \ V_s): max |value| 1.26e-01                     FAIL
+
+Constraint count (l.1965): N_s = 18 pixels, N_ns = 3 -> N_s N_ns^2 = 162; lifted rank = 162 of 162
+
+Material-loss bounds [CSBoundML, l.1683] on a 27-pixel cube, chi = -6+0.8i (k|chi|^2/Im chi per volume):
+  sigma_ext/V = 26.8202, sigma_abs/V = 7.4629, sigma_scat/V = 19.3573;  bound = 287.7699 (ext, abs), 71.9425 (scat)
+  full-OT extinction bound (l.1737): 45.7472 >= 26.8202;  phi_opt constraint residual 2.8e-14
+  phi^dag phi = 1468.7847 <= (|chi|^2/Im chi) Im(psi^dag phi) = 5278.5108  (l.1675)
+
+wrote /Users/owen.miller/Projects/0.Old/2024.4-AOP-Tutorial/AOP Tutorial/git/limits-tutorial-companion/figures/sec5_vie_conservation.pdf

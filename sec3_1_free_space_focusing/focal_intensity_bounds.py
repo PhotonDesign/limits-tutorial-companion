@@ -90,6 +90,23 @@ def check_true_power_of_amp_optimum(theta):
     return 2 * np.pi * abs(E0[0])**2 / P, 2 * np.pi * abs(E0[0])**2 / Pamp
 
 
+def power_law_beam_ratio(n):
+    """(2 pi c/k^2) eps0|E(0)|^2/P at 2pi for c_p ∝ (k_z/k)^n (xhat . e_p)^* (closed form):
+    [1/(n+2) + 1/(n+4)]^2 / [1/(2n+3) + 1/(2n+5)].  n = -1 power-optimal (4/3), n = 0
+    amplitude-optimal (135/128), n = 1/2 Dias & Garcia de Abajo's 'diffraction-limited
+    Gaussian' reference beam, n = -1/2 aplanatic lens with uniform pupil (Richards-Wolf)."""
+    return (1 / (n + 2) + 1 / (n + 4))**2 / (1 / (2 * n + 3) + 1 / (2 * n + 5))
+
+
+def power_law_beam_numeric(n, theta=np.pi / 2):
+    khat, TH, PH, W = cap_quadrature(theta, 400, 256)
+    c, vec = optimal_coefficients(khat, np.array([1, 0, 0], complex), "amplitude")
+    w = np.abs(khat[:, 2])**n
+    c, vec = c * w[:, None], vec * w[:, None]
+    E0 = field(np.zeros((1, 3)), khat, W, vec)[0]
+    return 2 * np.pi * abs(E0[0])**2 / power_z(khat, W, c)
+
+
 def main(make_figure=True):
     print("=" * 78)
     print("Sec. 3.1.2  focal-point intensity maxima, units k^2/(2 pi c)")
@@ -134,6 +151,12 @@ def main(make_figure=True):
               f" per amplitude norm {amp_ratio:.6f} (closed {bound_amp_inplane(thv):.6f})")
     print(f"  at 2pi: 135/128 = {135/128:.6f}; power-optimal advantage at equal physical power = "
           f"{bound_power_inplane(np.pi/2)/(135/128):.4f} (vs 16/9 = {16/9:.4f} across different normalizations)")
+
+    print("\nReference beams c_p ∝ (k_z/k)^n (x.e_p)^* at 2pi (per physical power):")
+    for n, name in [(-1, "power-optimal"), (-0.5, "aplanatic, uniform pupil"), (0, "amplitude-optimal"),
+                    (0.5, "Dias2020 'Gaussian' reference"), (1, "c ∝ k_z/k")]:
+        r_cf, r_num = power_law_beam_ratio(n), power_law_beam_numeric(n)
+        print(f"  n = {n:+.1f} ({name:30s}): {r_cf:.6f} (numeric {r_num:.6f});  optimum / this = {(4/3)/r_cf:.4f}")
 
     if make_figure:
         import matplotlib

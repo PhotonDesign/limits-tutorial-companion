@@ -1,0 +1,51 @@
+======================================================================================
+Sec. 5.1 material-loss, channel, and optical-theorem bounds
+======================================================================================
+A. Quasi-static Drude spheroids (wp = 9 eV, gamma = 0.05 eV), sigma_abs/V = k Im[chi/(1+L chi)]:
+   max over (w, L grid) of (sigma_abs/V) / (k|chi|^2/Im chi) = 1.000000  (never above 1)
+   at resonance L* = -Re(1/chi) in (0,1) (400 of 400 frequencies, 1.00-6.20 eV): ratio = 1 to 6.7e-16
+   with radiative correction (b = 5-40 nm, aspect 1-8): max ratios ext 0.8836, abs 0.7971, scat/(bound/4) 0.4856  (all <= 1)
+
+B. Dipole limit (k = 1): resonant radiatively-corrected ellipsoid vs CSOTBound / DualBounds, 3 lambda^2/2pi units:
+            chi     rho   Im xi |   ext max CSOTBound |   abs max  dual abs |   sca max  dual sca
+      (-5+0.5j)   0.010  0.0198 |  0.335548  0.335548 |  0.222956  0.222956 |  0.112593  0.112593
+      (-5+0.5j)   0.100  0.0198 |  0.834711  0.834711 |  0.137969  0.250000 |  0.696742  0.696742
+     (-3+0.05j)   0.100  0.0056 |  0.947382  0.947382 |  0.049849  0.250000 |  0.897533  0.897533
+      (-3+1.5j)   0.020  0.1333 |  0.130435  0.130435 |  0.113422  0.113422 |  0.017013  0.017013
+        (-8+3j)   0.500  0.0411 |  0.924051  0.924051 |  0.070181  0.250000 |  0.853870  0.853870
+   -> CSOTBound and the scattering dual bound are saturated exactly; the absorption dual bound
+      is saturated when Im xi >= rho and otherwise equals the channel limit 1/4 (not reachable by a single dipole).
+
+   l.1758 'DualBounds simplify to their material-only ... counterparts': small-rho limit at Im xi = 0.1:
+   rho = 1e-01: dual abs / material abs bound = 0.2500;  dual sca / material sca bound (1/4) = 1.00e+00  (= 4 rho/(rho+Im xi)^2 * Im xi)
+   rho = 1e-02: dual abs / material abs bound = 0.8264;  dual sca / material sca bound (1/4) = 3.31e-01  (= 4 rho/(rho+Im xi)^2 * Im xi)
+   rho = 1e-03: dual abs / material abs bound = 0.9803;  dual sca / material sca bound (1/4) = 3.92e-02  (= 4 rho/(rho+Im xi)^2 * Im xi)
+   rho = 1e-04: dual abs / material abs bound = 0.9980;  dual sca / material sca bound (1/4) = 3.99e-03  (= 4 rho/(rho+Im xi)^2 * Im xi)
+   -> absorption: yes; scattering: the dual bound scales as V^2 (tighter), never as the beta = 1/4 material bound.
+
+C. Normalization of rho_{np} and plane-wave channel weights (independent identity, k = 1):
+   kR = 0.5: psi^dag ImG0 psi = 1.3173939442e-02 vs (2pi) sum (2n+1)(rho_TE^2+rho_TM^2) = 1.3173939442e-02;  sum c_n rho_n / kV = 1.0000000000
+   kR = 2.0: psi^dag ImG0 psi = 1.7276787995e+01 vs (2pi) sum (2n+1)(rho_TE^2+rho_TM^2) = 1.7276787995e+01;  sum c_n rho_n / kV = 1.0000000000
+   kR = 5.0: psi^dag ImG0 psi = 8.9255609223e+02 vs (2pi) sum (2n+1)(rho_TE^2+rho_TM^2) = 8.9255609223e+02;  sum c_n rho_n / kV = 1.0000000000
+
+D. Mie spheres vs spherical-domain bounds (max over kR in [0.05, 6] of sigma/bound, must be <= 1):
+   chi =    (-4+0.3j): ext/CSOTBound 0.8088, abs/dual 0.5083, sca/dual 0.8869, per-channel ext/OT 0.993327, chan sca/unit 0.9702, chan abs/(unit/4) 0.9895
+   chi =  (-2.2+0.1j): ext/CSOTBound 0.3596, abs/dual 0.0586, sca/dual 0.3827, per-channel ext/OT 0.999995, chan sca/unit 0.9734, chan abs/(unit/4) 0.1306
+   chi =      (-8+1j): ext/CSOTBound 0.4447, abs/dual 0.0999, sca/dual 0.4925, per-channel ext/OT 0.989618, chan sca/unit 0.9660, chan abs/(unit/4) 0.4856
+   chi =     (3+0.5j): ext/CSOTBound 0.5766, abs/dual 0.5174, sca/dual 0.5429, per-channel ext/OT 0.986428, chan sca/unit 0.6675, chan abs/(unit/4) 0.9986
+   chi =   (11+0.05j): ext/CSOTBound 0.2660, abs/dual 0.1030, sca/dual 0.2651, per-channel ext/OT 0.989457, chan sca/unit 0.9794, chan abs/(unit/4) 0.9966
+
+E. Per-channel unitary bounds [CSvswChannelBound, l.1708] with Mie coefficients (units (2n+1) lambda^2/2pi):
+   max over lossless spheres of sigma_sca,np (and ext) = 1.000000  (bound 1, reached at Mie resonances)
+   max over lossy (m = 3.5 + i m'') n = 1 TE absorption = 0.249985  (bound 1/4 = 3 lambda^2/8pi / (3 lambda^2/2pi))
+   sum_(n<=N)(2n+1) - (N^2+2N) for N = 1..7: [0, 0, 0, 0, 0, 0, 0];  N_TM = 3, N_TE = 0 -> 15 lambda^2/2pi (Fig. SuperScat caption: 15)
+
+F. l.1742 'large material loss ... only the first term in CSOTBound is retained':
+   kR = 0.2, Im xi = 1e4: full sum / (kV/Im xi) = 1.000000;  n=1 TM term alone / (kV/Im xi) = 0.9920
+   kR = 1.0, Im xi = 1e4: full sum / (kV/Im xi) = 0.999985;  n=1 TM term alone / (kV/Im xi) = 0.8189
+   kR = 2.0, Im xi = 1e4: full sum / (kV/Im xi) = 0.999948;  n=1 TM term alone / (kV/Im xi) = 0.4556
+   kR = 4.0, Im xi = 1e4: full sum / (kV/Im xi) = 0.999870;  n=1 TM term alone / (kV/Im xi) = 0.1194
+   -> at large loss every term becomes (2n+1) rho/Im xi and the SUM gives the material bound;
+      the n = 1 term alone suffices only for small volume (kR << 1).
+
+wrote /Users/owen.miller/Projects/0.Old/2024.4-AOP-Tutorial/AOP Tutorial/git/limits-tutorial-companion/figures/sec5_material_loss_bounds.pdf

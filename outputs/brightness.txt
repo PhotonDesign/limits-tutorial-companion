@@ -1,0 +1,35 @@
+====================================================================================
+Sec. 4.4  brightness theorem: rho_out = S rho_in S^dag, S passive
+====================================================================================
+ n | max_k [lam_k(out) - lam_k(in)] | max_N [partial-sum excess]   (2000 trials each, rectangular S)
+ 2 | +7.444e-17                     | -1.044e-07
+ 3 | +8.567e-17                     | -8.240e-07
+ 4 | +7.138e-17                     | -6.428e-06
+ 5 | +5.387e-17                     | -1.018e-05
+ 6 | +4.540e-17                     | -4.686e-05
+ 7 | +4.108e-17                     | -2.325e-05
+ 8 | +4.218e-17                     | -7.148e-05
+  -> termwise theorem and the text's partial-sum (weak-majorization) statement hold.
+
+Miller S5 example lam_in = (1, 0.3), lam_out = (0.8, 0.4): partial sums OK = True, but needs |det M|^2 = 1.0667 > 1 -> not passively reachable (termwise bound is strictly stronger).
+
+Unitary S: max |lam_out - lam_in|/lam_1 = 1.9e-15; max |Delta entropy| = 8.9e-16 -> HLP 'doubly-stochastic mixing' is D = I (vacuous).
+Lossy S = diag(1,0), rho_in = diag(1/2,1/2): trace 1.00 -> 0.50 (no doubly-stochastic D can map it), normalized entropy 0.6931 -> 0.0000 (DEcreases).
+Random lossy 4x4 passive maps: normalized spectral entropy decreases in 98.2% of 5000 cases (max drop 1.206 nats).
+(Channel-power Shannon entropy under a lossless 50/50 coherent combiner: 0.6931 -> 0.0000; also not monotone.)
+
+Concentrator (line ~1649): max average DL efficiency for N incoherent inputs
+  N =  1: bound 1/N = 100.00%; optimal passive design 100.00% (passive True, lam_1(rho_out) = 1.000); best of 2000 random  10.48%
+  N =  2: bound 1/N =  50.00%; optimal passive design  50.00% (passive True, lam_1(rho_out) = 1.000); best of 2000 random   9.60%
+  N =  5: bound 1/N =  20.00%; optimal passive design  20.00% (passive True, lam_1(rho_out) = 1.000); best of 2000 random   4.74%
+  N = 11: bound 1/N =   9.09%; optimal passive design   9.09% (passive True, lam_1(rho_out) = 1.000); best of 2000 random   2.74%
+
+TCMT (line ~1657): N incoherent inputs, M resonances, avg transmission <= M/N
+  N = 2, outputs = 1, M = 1: max avg T over random models = 0.5000  (bound min(M, outputs)/N = 0.5000); max |S^dag S - I| = 1.3e-15
+  N = 2, outputs = 2, M = 1: max avg T over random models = 0.5000  (bound min(M, outputs)/N = 0.5000); max |S^dag S - I| = 1.7e-15
+  N = 3, outputs = 3, M = 2: max avg T over random models = 0.6541  (bound min(M, outputs)/N = 0.6667); max |S^dag S - I| = 2.4e-15
+  N = 4, outputs = 4, M = 2: max avg T over random models = 0.4736  (bound min(M, outputs)/N = 0.5000); max |S^dag S - I| = 2.1e-15
+  N = 2, outputs = 2, M = 2: max avg T over random models = 0.9658  (bound min(M, outputs)/N = 1.0000); max |S^dag S - I| = 3.4e-15
+  optimal single resonance, 2 in / 2 out, on resonance: avg T = 0.5000 (= 1/2)
+
+wrote figures/sec4_brightness_theorem.pdf/png

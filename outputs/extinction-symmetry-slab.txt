@@ -1,0 +1,28 @@
+====================================================================================
+Sec. 4.1  extinction symmetry for a graded lossy slab (fig:ExtSym)
+====================================================================================
+theta pol | max|ext1-ext2| max|ext_ml1-ml2| | max|A1-A2| max|sca1-sca2| max|R1-R2| | max|sca-sca_direct|
+    0   s |        1.3e-15          1.8e-15 |      0.308          0.308      0.308 |             8.9e-16
+    0   p |        8.9e-16          1.8e-15 |      0.308          0.308      0.308 |             8.9e-16
+   30   s |        1.8e-15          2.2e-15 |      0.359          0.359      0.359 |             1.3e-15
+   30   p |        1.8e-15          1.8e-15 |      0.257          0.257      0.257 |             1.3e-15
+   60   s |        1.8e-15          1.8e-15 |      0.534          0.534      0.534 |             1.3e-15
+   60   p |        1.8e-15          1.8e-15 |      0.079          0.079      0.079 |             1.3e-15
+  -> extinction equal to 1.8e-15 at every frequency, angle, polarization; absorption/scattering/reflection differ by O(0.1-0.7).
+  random 15-layer lossy stack, 45 deg, p: max|ext1-ext2| = 4.4e-16, max|A1-A2| = 0.354
+
+Figure-(c) quantity: MATLAB 2 Re(1 - t_face) vs physical 2 Re(1 - t_face e^{-ikL}), normal incidence
+ f (c/L) | ext (true) ext (MATLAB) | A1 (front) A2 (rear) | sca1 true sca1 MATLAB
+   0.250 |      2.476        3.349 |      0.291     0.465 |     2.185       3.058
+   0.457 |      3.078        0.844 |      0.399     0.612 |     2.678       0.444
+   0.647 |      1.695        2.915 |      0.461     0.690 |     1.234       2.453
+   0.901 |      1.433        1.220 |      0.550     0.828 |     0.883       0.670
+   1.108 |      2.484        2.658 |      0.588     0.874 |     1.896       2.070
+   1.997 |      2.312        2.312 |      0.668     0.972 |     1.644       1.644
+   2.998 |      2.003        2.004 |      0.687     0.994 |     1.315       1.317
+   5.000 |      2.000        2.000 |      0.691     0.999 |     1.308       1.308
+  (published panel (c): black x at f = 0.25 is ~3.35, first minimum ~0.85 near f = 0.46, next peak ~2.9 near f = 0.65 -> matches the MATLAB column, not the physical one)
+  empty slab (n = 1): max ext true = 2.2e-15; max MATLAB quantity = 3.999
+  discretization: 100 vs 1000 layers, max |ext difference| = 4.7e-05
+
+wrote figures/sec4_extinction_symmetry_slab.pdf/png

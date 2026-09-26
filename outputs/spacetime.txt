@@ -1,0 +1,14 @@
+==============================================================================
+Sec. 3.1.5: space-time focusing (wm = c = 1)
+==============================================================================
+1. Eq. (ST1d) closed form vs direct quadrature at random (x,t): max rel. err 1.5e-14
+2. first zero at t=0: space-time 6.283185 = 2pi;  single-frequency 3.141593 = pi;  ratio 2.000000
+3. 3D: closed form (3/4)[Si(U)+j1(U)]/U vs quadrature: max abs diff 1.1e-14
+   min over U in (0, 200] of psi_3D(U,0): 5.8722e-03 (> 0: no zeros);  U*psi at U=200: 1.1744 (-> 3pi/8 = 1.1781)
+   intensity half-width at half-max (units c/wm): space-time 2.2764, single-frequency 1.2632; ratio 1.802
+   1D intensity HWHM: space-time 2.0038, single-frequency 1.3916
+4. Energy-normalized alternatives:
+   2D line: J1(U)/U first zero 3.8317 vs J0 first zero 2.4048: ratio 1.5933
+   3D: omega^2-weighted profile has first zero at U = 3.7969 vs single-frequency 2.7437: ratio 1.384
+
+wrote figures/spacetime_focusing.*
