@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+derivations/*.aux
+derivations/*.log
+derivations/*.out
+derivations/*.toc
+derivations/*.fls
+derivations/*.fdb_latexmk
+derivations/*.synctex.gz
+.DS_Store
