@@ -1,0 +1,21 @@
+================================================================================================
+Sec. 2.1  Maximum Re chi / refractive index at fixed dispersion: LP vs closed forms (w = 1)
+================================================================================================
+  w_p    chi_ |   LP max chi       closed  rel gap | #osc             LP w_i w_0 (l.783) |       n (n2-1)^2/n / R printed / R
+  2.0    0.30 |     0.774594     0.774597  3.0e-06 |    2     2.4766, 2.4838      2.4827 |  1.3321       0.999994    0.750668
+  2.0    5.00 |     3.162263     3.162278  4.6e-06 |    2     1.5042, 1.5071      1.5050 |  2.0402       0.999991    0.490153
+  5.0    1.00 |     3.535515     3.535534  5.4e-06 |    2     2.8380, 2.8466      2.8410 |  2.1297       0.999989    0.469550
+ 15.0    0.50 |     7.499955     7.500000  6.0e-06 |    2     5.5585, 5.5771      5.5678 |  2.9155       0.999988    0.342994
+ 15.0   50.00 |    74.999664    75.000000  4.5e-06 |    2     1.9987, 2.0039      2.0000 |  8.7178       0.999991    0.114707
+  (#osc = 2: the two grid points bracketing w_0; gap -> 0 as the grid is refined)
+  -> optimum satisfies (n^2-1)^2/n = w_p^2 n'/w; printed LHS ((n^2-1)/n)^2 is smaller by the factor n
+
+Real materials at 1550 nm (valence-electron density; n' = dn/dw from Sellmeier fits):
+             n hbar w_p [eV]        R | bound: Shim Eq.7 printed eq:max_n  R^(1/3)
+Si      3.4764         16.60   50.574 |           3.8722           7.2495   3.6981
+SiO2    1.4440         22.07   14.141 |           2.6738           4.0098   2.4182
+
+[eq:max_n_large] is asymptotic: exact bound / R^(1/3) = 1.2114 (n=2), 1.0440 (n=4), 1.0067 (n=10)
+l.803: 10x in n at fixed w, n' needs 10^3 x N_e for large n; exact form, n = 4 -> 40: x1136
+
+wrote /Users/owen.miller/Projects/0.Old/2024.4-AOP-Tutorial/AOP Tutorial/git/limits-tutorial-companion/figures/sec2_max_refractive_index.pdf/png

@@ -1,0 +1,15 @@
+================================================================================
+Sec. 1.1  Maxwell sign conventions and the surface equivalence principle (ka = 2.5)
+================================================================================
+(i)  [eq:MaxwellDiffEq] source-free residuals (central differences, h = 1e-4):  J source 4.9e-09, M source 4.9e-09
+(ii) work done by unit point sources ([eq:TETD], time-harmonic) vs outward Poynting flux:
+     J: -1/2 Re(q*.field) = 0.16578624,  flux at R = 7: 0.16578640,  k^2/(12 pi) = 0.16578640
+     M: -1/2 Re(q*.field) = 0.16578624,  flux at R = 7: 0.16578640,  k^2/(12 pi) = 0.16578640
+
+Sphere a = 1, 48 x 96 quadrature; 20 random points inside (r <= 0.6) and outside (1.7 <= r <= 4)
+                                currents |                 inside |                outside
+      [eq:ECinc]  -n x H_inc, +n x E_inc |  |F - F_inc| = 1.1e-14 |          |F| = 6.2e-15
+               control: J_m sign flipped |  |F - F_inc| = 1.8e+00 |          |F| = 4.2e-01
+      [eq:ECscat] +n x H_sca, -n x E_sca |    |F|/|E_s| = 2.0e-14 | |F - F_s|/|E_s| = 1.6e-14
+               control: J_m sign flipped |    |F|/|E_s| = 6.2e+00 | |F - F_s|/|E_s| = 2.2e+00
+  -> [eq:SEP]/[eq:ECinc]/[eq:ECscat] are consistent with [eq:MaxwellDiffEq] and e^{-iwt}.

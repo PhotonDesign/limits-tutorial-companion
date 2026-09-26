@@ -1,0 +1,24 @@
+========================================================================================
+Sec. 5.7  cloaking bandwidth rules of thumb and examples
+========================================================================================
+A. Rule of thumb [eq:cloak_bound_1], Delta R = 1 m, Q_c = 5, lambda0 = 500 nm
+   printed formula lambda0/(Delta R Q_c) = 1.000e-07 = 1.00e-05 %  (text: 10^-5 %)
+   tau = 1/domega                   : B < 1.592e-08 = 1.59e-06 %
+   tau = gaussian FWHM 4ln2/domega  : B < 4.413e-08 = 4.41e-06 %
+   tau = 1/df = 2pi/domega          : B < 1.000e-07 = 1.00e-05 %
+   -> with tau ~= 1/Delta omega as stated at l.2432 the bound is lambda0/(2 pi Delta R Q_c) = 1.6e-6 %;
+      the printed bound and '10^-5 %' correspond to tau ~= 1/Delta f.
+
+B. Sphere bound l.2442, a = 1 m, lambda0 = 500 nm, ten-fold suppression
+   exact PEC Mie, ka =    50: sigma_sca/(pi a^2) = 2.0145  (-> 2)
+   exact PEC Mie, ka =   200: sigma_sca/(pi a^2) = 2.0047  (-> 2)
+   relative to 2 pi a^2 (large-sphere value) : |ln(sigma/2pi a^2)| = 2.303, B < 2.17e-07 = 2.17e-05 %  (text: 2e-5 %)
+   relative to pi a^2                        : |ln(sigma/2pi a^2)| = 2.996, B < 1.67e-07 = 1.67e-05 %  (text: 2e-5 %)
+
+C. Slab bound l.2439: thin slab = shunt C = eps0 (eps_r - 1) d on a line of impedance eta0
+   eps_r =  2.25: |r_exact/r_shuntC - 1| at k0 d = 1e-3, 1e-2, 3e-2: 1.0e-03, 1.0e-02, 3.0e-02
+   eps_r =  4.00: |r_exact/r_shuntC - 1| at k0 d = 1e-3, 1e-2, 3e-2: 1.0e-03, 1.0e-02, 3.0e-02
+   eps_r = 12.00: |r_exact/r_shuntC - 1| at k0 d = 1e-3, 1e-2, 3e-2: 1.0e-03, 1.0e-02, 3.0e-02
+   Bode-Fano (R = eta0, C = eps0 (eps_r-1) d): Delta omega |ln G0| <= pi/(RC) = pi c/((eps_r-1) d)
+   => B <= (lambda0/d) / (2 (eps_r - 1) |ln G0|)   vs printed (lambda0/d)/((eps_r - 1)|ln G0|)
+   e.g. eps_r = 4, d = 50 nm, lambda0 = 500 nm, G0 = 0.1: thin-slab 0.724, printed 1.448

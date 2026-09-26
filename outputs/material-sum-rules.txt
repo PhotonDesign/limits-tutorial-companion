@@ -1,0 +1,30 @@
+========================================================================================
+Sec. 2  sum rules, loss-bandwidth bound, TRK, and quoted numbers
+========================================================================================
+insulator: f-sum int w Im chi = 6.2831853072   pi w_p^2/2 = 6.2831853072
+conductor: f-sum int w Im chi = 7.5398223686   pi w_p^2/2 = 7.5398223686
+
+footnote l.746:  int_0^inf Re chi dw
+  insulator: -2.220e-16   (claimed 0)
+  conductor: -20.9439510239   -pi sigma_0/(2 eps0) = -pi fD/(2 gD) = -20.9439510239
+
+footnote l.757-760: impulse response J(t)/(eps0 E0) = (1/2pi) int -i w chi e^{-i w t} dw
+  insulator: t=-1e-03: 0.000000,  t=+0e+00: 2.000000,  t=+1e-03: 3.997572,  t=+1e-02: 3.974101;  w_p^2 = 4.0000, analytic d chi/dt(0+) = 4.0000
+  conductor: t=-1e-03: 0.000000,  t=+0e+00: 2.400000,  t=+1e-03: 4.798479,  t=+1e-02: 4.784665;  w_p^2 = 4.8000, analytic d chi/dt(0+) = 4.8000
+  -> 0 before, w_p^2 just after (independent of w_j, g_j); the symmetric integral at t = 0 is the midpoint w_p^2/2
+
+l.833: box absorber at the bound, Im chi = 14.137167: f-sum 14.1371669412 = pi w_p^2/2 = 14.1371669412 (tight)
+       300 random multi-Lorentz media: max of min_band Im chi / bound = 0.2276 (<= 1)
+
+l.891-899 TRK (hbar = m = 1, anharmonic well, grid h = 0.0040; predicted delta_pq/2):
+  (p,q)=(0, 0): +0.499998,  (p,q)=(1, 1): +0.499993,  (p,q)=(2, 2): +0.499988,  (p,q)=(0, 1): +0.000000,  (p,q)=(0, 2): -0.000003,  (p,q)=(1, 3): -0.000005
+
+quoted numbers:
+  l.847  Im k = 10 /cm over 1 mm: power attenuation 1 - e^(-2) = 0.865  ('on the order of 90%')
+  l.849  BCS pi e^(-gamma_E) = 1.7639  (1.764)
+  l.926  W = N U0: 1.60e+03 to 1.60e+05 J/cm^3  ('10^3 - 10^5 J/cm^3')
+  l.928  U_m / (m d^2/t^2) = 2.000  (2)
+         rho = 1e-03 kg/cm^3, d = 10 um: u < 1 J/cm^3 for t > 0.45 us;  u < 1e3 J/cm^3 for t > 14 ns
+         rho = 1e-03 kg/cm^3, d = 50 um: u < 1 J/cm^3 for t > 2.24 us;  u < 1e3 J/cm^3 for t > 71 ns
+         rho = 1e-02 kg/cm^3, d = 10 um: u < 1 J/cm^3 for t > 1.41 us;  u < 1e3 J/cm^3 for t > 45 ns
+         rho = 1e-02 kg/cm^3, d = 50 um: u < 1 J/cm^3 for t > 7.07 us;  u < 1e3 J/cm^3 for t > 224 ns

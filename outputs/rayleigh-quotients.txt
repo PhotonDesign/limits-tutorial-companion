@@ -1,0 +1,13 @@
+====================================================================================
+Sec. 1.7  Rayleigh quotients, Fan, Hoffman-Wielandt  (M = 6, N = 3, complex X)
+====================================================================================
+max x^dag A x / x^dag x  (l.634)                           numeric +1.82201136   formula +1.82201136   = lambda_max
+same, x orthogonal to x_1  (l.640)                         numeric +1.00396158   formula +1.00396158   = lambda_2
+[eq:FanThm] max Tr(X^dag A X)                              numeric +3.76102293   formula +3.76102293   = sum of top N
+[eq:HW1] max Tr(X^dag A X B), B > 0                        numeric +4.89262027   formula +4.89262027   equality
+[eq:HW2] min Tr(X^dag A X B), B > 0                        numeric -3.41027106   formula -3.41027106   equality
+[eq:HW1] B indefinite, N < M                               numeric +4.45503265   formula +2.19955169   VIOLATED
+[eq:HW1] B indefinite, N = M (X unitary)                   numeric +5.39015418   formula +5.39015418   holds
+[eq:HW1] relaxed X^dag X <= I, A with 1 positive eig       numeric +3.07936961   formula +1.48141994   VIOLATED
+                                                           explicit X = u1 b1^dag gives +3.07936961 = sum max(lambda_i(A),0) lambda_i(B) = +3.07936961
+[eq:HW1] relaxed, A >= 0                                   numeric +8.09254869   formula +8.09254869   holds

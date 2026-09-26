@@ -1,0 +1,49 @@
+======================================================================================
+Sec. 5.7  spherical scattering coefficients: KK relation, Blaschke term, sum rule (a = c = 1)
+======================================================================================
+
+A. PEC sphere: f_n = s_n e^{2ix} vs Blaschke product of its UHP zeros
+    n pol #zeros  max|f/B-1|  ||f|-1|  sum Im(1/x_i)  a1 correct  a1 printed
+    1  TE      1     6.7e-16  4.4e-16  -1.0000000000     0.0e+00      4.0000
+    1  TM      2     2.1e-15  4.4e-16  -1.0000000000    -4.4e-16     10.0000
+    2  TE      2     1.3e-15  4.4e-16  -1.0000000000    -4.4e-16      4.6667
+    2  TM      3     1.9e-15  4.4e-16  -1.0000000000     1.8e-15      8.9514
+    3  TE      3     2.6e-15  4.4e-16  -1.0000000000     0.0e+00      5.0365
+    3  TM      4     1.3e-14  4.4e-16  -1.0000000000     1.1e-15      8.6000
+    4  TE      4     4.5e-15  4.4e-16  -1.0000000000     1.8e-15      5.2824
+    4  TM      5     7.9e-15  4.4e-16  -1.0000000000     4.4e-16      8.4257
+    5  TE      5     3.4e-15  4.4e-16  -1.0000000000    -4.4e-16      5.4624
+    5  TM      6     7.4e-15  4.4e-16  -1.0000000000     2.2e-16      8.3221
+    6  TE      6     1.4e-14  4.4e-16  -1.0000000000     2.7e-15      5.6022
+    6  TM      7     4.6e-14  4.4e-16  -1.0000000000     1.8e-15      8.2536
+   -> h_n = -i log(f/B) = 0 identically; low-frequency coefficient is 2a/c + 2 sum Im(1/w_i) = 0,
+      matching l.2340 with equality.  The printed 2a/c + 2 sum 1/Im w_i (l.2332, l.2388) is wrong.
+
+   own n=1 Mie vs sec5_local_constraints/mie.py: max|da| = 4.5e-10, max|db| = 4.6e-10
+
+B. [eq:KK_scattering]: Re f(x) vs 1 + (x/pi) PV int Im f(x')/(x'(x'-x)) dx'
+   (grid x' = dx/2, 3dx/2, ...; the printed integrand ~ Im s_n(w)/w'^2 as w' -> 0, so it diverges
+    logarithmically and its value depends on the low-frequency cutoff dx/2)
+   PEC TE1:  [dx = 2e-3 | dx = 5e-4]
+      x = 0.5: Re f = +0.60000   KK with s(w') = +0.60000 | +0.60000   printed s(w) = +0.90621 | +0.97032
+      x = 1.5: Re f = -0.38462   KK with s(w') = -0.38462 | -0.38462   printed s(w) = +3.84103 | +4.59963
+      x = 4.0: Re f = -0.88235   KK with s(w') = -0.88235 | -0.88235   printed s(w) = -4.00676 | -4.71676
+   Lorentz sphere TM1:  [dx = 2e-3 | dx = 5e-4]
+      x = 0.5: Re f = +0.42339   KK with s(w') = +0.42339 | +0.42339   printed s(w) = -0.09974 | -0.21351
+      x = 1.5: Re f = +0.47322   KK with s(w') = +0.47322 | +0.47322   printed s(w) = +0.28461 | -0.06521
+      x = 4.0: Re f = +0.27694   KK with s(w') = +0.27694 | +0.27694   printed s(w) = +2.70274 | +2.87753
+
+C. [eq:sum_rule_sn] for lossy Lorentz spheres (n = 1): (2/pi) int ln(1/|s|)/x^2 dx  /  (2a/c)
+   Lorentz  wp=3,  w0=1.2, g=0.4  TM: ratio = 0.1410  (lambda form / 2 pi^2 a = 0.1410; max|s| = 1.0000)
+   Lorentz  wp=3,  w0=1.2, g=0.4  TE: ratio = 0.0815  (lambda form / 2 pi^2 a = 0.0815; max|s| = 1.0000)
+   Lorentz  wp=6,  w0=2.0, g=2.0  TM: ratio = 0.2397  (lambda form / 2 pi^2 a = 0.2397; max|s| = 1.0000)
+   Lorentz  wp=6,  w0=2.0, g=2.0  TE: ratio = 0.1765  (lambda form / 2 pi^2 a = 0.1765; max|s| = 1.0000)
+   Drude-ish wp=8, w0=0.05, g=1.0  TM: ratio = 0.0864  (lambda form / 2 pi^2 a = 0.0864; max|s| = 1.0000)
+   Drude-ish wp=8, w0=0.05, g=1.0  TE: ratio = 0.0565  (lambda form / 2 pi^2 a = 0.0565; max|s| = 1.0000)
+   weak     wp=1,  w0=1.0, g=0.1  TM: ratio = 0.0822  (lambda form / 2 pi^2 a = 0.0822; max|s| = 1.0000)
+   weak     wp=1,  w0=1.0, g=0.1  TE: ratio = 0.0169  (lambda form / 2 pi^2 a = 0.0169; max|s| = 1.0000)
+
+D. l.2360: int_{w0(1-B/2)}^{w0(1+B/2)} dw/w^2 = (B/w0)/(1 - B^2/4)
+   B = 0.1: direct 0.0501253133, formula 0.0501253133
+   B = 0.5: direct 0.2666666667, formula 0.2666666667
+   B = 1.0: direct 0.6666666667, formula 0.6666666667

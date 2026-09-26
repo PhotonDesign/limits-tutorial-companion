@@ -32,9 +32,13 @@ Amplitude-optimal beam measured per PHYSICAL power (new):
 
 Reference beams c_p ∝ (k_z/k)^n (x.e_p)^* at 2pi (per physical power):
   n = -1.0 (power-optimal                 ): 1.333333 (numeric 1.333333);  optimum / this = 1.0000
-  n = -0.5 (aplanatic, uniform pupil      ): 1.209373 (numeric 1.209373);  optimum / this = 1.1025
+  n = -0.5 (family member n = -1/2        ): 1.209373 (numeric 1.209373);  optimum / this = 1.1025
   n = +0.0 (amplitude-optimal             ): 1.054688 (numeric 1.054688);  optimum / this = 1.2642
   n = +0.5 (Dias2020 'Gaussian' reference ): 0.929185 (numeric 0.929185);  optimum / this = 1.4349
   n = +1.0 (c ∝ k_z/k                     ): 0.829630 (numeric 0.829630);  optimum / this = 1.6071
+  aplanatic lens, uniform pupil, sin th = 0.8: 0.650616 (numeric 0.650616); optimum / this = 1.0165
+  aplanatic lens, uniform pupil, sin th = 1.0: 1.137778 (numeric 1.137778); optimum / this = 1.1719
+
+2pi power-optimal focus: Z0|H(0)|/|E(0)| = 0.750000 (3/4); H(0) = 0 at 4pi (odd in k_z)
 
 wrote /Users/owen.miller/Projects/0.Old/2024.4-AOP-Tutorial/AOP Tutorial/git/limits-tutorial-companion/figures/focal_intensity_bounds.pdf

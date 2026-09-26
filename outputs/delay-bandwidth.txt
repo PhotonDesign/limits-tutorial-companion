@@ -1,0 +1,45 @@
+==========================================================================================
+Sec. 5.9  delay-bandwidth products (c = 1)
+==========================================================================================
+A. Tucker bound: Delta T Delta omega in units of 2 pi L/lambda_c
+   n_max n_min  dw/wc    LP max     exact   printed  excess 2(dn)/(n+n)
+    3.50  1.45   0.02    2.0995    2.0995    2.0500    2.4%       0.828
+    3.50  1.45   0.20    2.5450    2.5450    2.0500   24.1%       0.828
+    3.50  1.45   0.50    3.2875    3.2875    2.0500   60.4%       0.828
+    2.00  1.00   0.02    1.0300    1.0300    1.0000    3.0%       0.667
+    2.00  1.00   0.20    1.3000    1.3000    1.0000   30.0%       0.667
+    2.00  1.00   0.50    1.7500    1.7500    1.0000   75.0%       0.667
+    1.50  1.45   0.02    0.0795    0.0795    0.0500   59.0%       0.034
+    1.50  1.45   0.20    0.3450    0.3450    0.0500  590.0%       0.034
+    1.50  1.45   0.50    0.7875    0.7875    0.0500 1475.0%       0.034
+   -> the dropped term (n_max+n_min) dw/(2 wc) is negligible only if dw/wc << 2(n_max-n_min)/(n_max+n_min)
+
+B. FWHM (intensity) time-bandwidth products Delta t Delta omega of transform-limited pulses
+   Gaussian                  : FWHM product 2.7726  (tabulated 2.7726);  rms product 0.5000
+   sech (sech^2 intensity)   : FWHM product 1.9782  (tabulated 1.9779);  rms product 0.5236
+   one-sided exponential     : FWHM product 0.6936  (tabulated 0.6931);  rms product diverges (spectrum ~ 1/w^2)
+   rectangular               : FWHM product 5.5662  (tabulated 5.5663);  rms product diverges (spectrum ~ 1/w^2)
+   -> 'Delta t Delta omega >= 2' is not a theorem for FWHMs (one-sided exponential: ln 2 = 0.69); Gaussian gives 4 ln 2 = 2.77.
+
+C. Single resonator (gamma = 1), pulse bandwidth << gamma
+   one-port reflection delay: 1.9996
+   two-port transmission delay: 0.9998
+   1/e amplitude lifetime  : 1.0000
+   |a|^2 FWHM              : 2.0000
+   -> 1/e lifetime x FWHM = 2 (text's definition); one-port group delay x FWHM = 4; two-port transmission delay x FWHM = 2
+
+D. Miller [eq:Miller_delay_band] vs Tucker [eq:Tucker_delay_band], n_min = n_b = 1
+   eps_max =  2.00: Miller/Tucker = 0.6969
+   eps_max =  4.00: Miller/Tucker = 0.8660
+   eps_max =  6.00: Miller/Tucker = 0.9958
+   eps_max =  6.07: Miller/Tucker = 0.9999
+   eps_max =  8.00: Miller/Tucker = 1.1052
+   eps_max = 12.00: Miller/Tucker = 1.2887
+   crossover eps = (2 sqrt3 - 1)^2 = 6.0718  (text: ~6)
+
+E. Metalens bound l.2557: required delay spread Delta T = (F/c)(1/sqrt(1-NA^2) - 1)
+   NA = 0.1: kappa/Delta T = 595.496231, formula = 595.496231
+   NA = 0.5: kappa/Delta T = 19.392305, formula = 19.392305
+   NA = 0.9: kappa/Delta T = 2.318111, formula = 2.318111
+
+wrote /Users/owen.miller/Projects/0.Old/2024.4-AOP-Tutorial/AOP Tutorial/git/limits-tutorial-companion/figures/sec5_4_9_delay_bandwidth.pdf

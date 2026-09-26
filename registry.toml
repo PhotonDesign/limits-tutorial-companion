@@ -188,3 +188,52 @@ section = "5.9"
 script = "sec5_4_9_scattering_limits/delay_bandwidth.py"
 claims = ["Tucker bound", "time-bandwidth products", "Miller crossover", "metalens bound"]
 owner = "FM"
+
+[[check]]
+id = "equivalence-principle"
+section = "1.1"
+script = "sec1_fundamental_principles/equivalence_principle.py"
+claims = ["[eq:MaxwellDiffEq] signs", "[eq:SEP]", "[eq:ECinc]", "[eq:ECscat]"]
+owner = "ODM"
+
+[[check]]
+id = "kramers-kronig"
+section = "1.4"
+script = "sec1_fundamental_principles/kramers_kronig.py"
+claims = ["[eq:KKRe]", "[eq:KKIm]", "[eq:dKKRe]", "[eq:asymp]", "conductor term"]
+owner = "ODM"
+
+[[check]]
+id = "passivity-herglotz"
+section = "1.5"
+script = "sec1_fundamental_principles/passivity_herglotz.py"
+claims = ["bounded-real S", "[eq:SMatRep]", "T-matrix Herglotz form", "[eq:h_sum_rules]"]
+owner = "ODM"
+
+[[check]]
+id = "rayleigh-quotients"
+section = "1.7"
+script = "sec1_fundamental_principles/rayleigh_quotients.py"
+claims = ["[eq:FanThm]", "[eq:HW1]", "[eq:HW2]"]
+owner = "ODM"
+
+[[check]]
+id = "max-refractive-index"
+section = "2.1"
+script = "sec2_material_bounds/max_refractive_index.py"
+claims = ["[eq:max_n]", "[eq:max_n_large]", "single-oscillator optimum"]
+owner = "FM"
+
+[[check]]
+id = "dispersion-bandwidth-bounds"
+section = "2.2"
+script = "sec2_material_bounds/dispersion_bandwidth_bounds.py"
+claims = ["[eq:derivative_bounds]", "slope bound (l. 814)", "[eq:low_epsilon_bound]", "open question l. 822"]
+owner = "FM"
+
+[[check]]
+id = "material-sum-rules"
+section = "2.3-2.7"
+script = "sec2_material_bounds/sum_rules_and_estimates.py"
+claims = ["f-sum rule", "loss bound", "TRK", "numbers quoted in Ch. 2"]
+owner = "FM"

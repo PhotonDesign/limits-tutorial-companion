@@ -25,7 +25,7 @@ def main():
         checks = tomllib.load(f)["check"]
     checks = [c for c in checks if c["section"].startswith(args.only) and (not args.id or c["id"] == args.id)]
     os.makedirs(os.path.join(ROOT, "outputs"), exist_ok=True)
-    env = dict(os.environ, MPLBACKEND="Agg")
+    env = dict(os.environ, MPLBACKEND="Agg", SOURCE_DATE_EPOCH="0")  # reproducible PDF metadata
     summary = []
     for c in checks:
         t0 = time.time()

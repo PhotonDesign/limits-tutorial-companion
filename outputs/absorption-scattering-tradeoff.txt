@@ -1,0 +1,23 @@
+====================================================================================
+Sec. 5.7  absorption / scattering tradeoffs (Mie)
+====================================================================================
+A. s_n forms of sigma_sca/ext/abs vs mie.py over 200 random spheres: max rel. diff = 7.3e-09
+   passive disk |c + 1/2| <= 1/2 (c = -a_n): max |c + 1/2| = 0.500000
+
+B. max per-channel sigma_abs/((2n+1) lambda^2) over the disk = 0.039789 at s = 0.000+0.000j; 1/(8 pi) = 0.039789; sigma_sca there = 0.039789 (= sigma_abs)
+
+C. Andersen inequality over 4000 random lossy spheres (x = 0.05-15)
+   length unit             max printed LHS/RHS  min printed  max corrected  max sabs/(l^2 D/4pi)
+   lambda                           1.0000e+00   2.6776e-04     1.00000000              0.999861
+   m (lambda = 1 um)                1.0000e-06   2.6776e-10     1.00000000              0.999861
+   mm (lambda = 1 um)               1.0000e-03   2.6776e-07     1.00000000              0.999861
+   nm (lambda = 1 um)               1.0000e+03   2.6776e-01     1.00000000              0.999861
+   corrected form: equality when S(0) is real; best case |arg S(0)| = 8.23e-06, ratio 1.00000000 (m = 2.315+0.004j, x = 6.497)
+   -> printed form: LHS/RHS scales as (length unit)^1, so it is dimensionally inconsistent;
+      the optical-theorem form sigma_abs + sigma_sca <= lambda sqrt(sigma_sca D_s/pi) holds for all spheres.
+
+   Example: 30-nm-radius sphere, eps = -2.2 + 0.3i, lambda = 500 nm: sigma_ext = 31357 nm^2, sigma_sca = 8908 nm^2, D_s = 1.503
+      printed RHS sqrt(sigma_sca D/pi) = 65.3 (in nm, if lengths in nm) -> 'violated' in nm, 'satisfied' in m (6.53e-08 m vs 3.14e-14 m^2)
+      corrected RHS lambda sqrt(sigma_sca D/pi) = 32644 nm^2 >= sigma_ext = 31357 nm^2
+
+wrote /Users/owen.miller/Projects/0.Old/2024.4-AOP-Tutorial/AOP Tutorial/git/limits-tutorial-companion/figures/sec5_4_9_andersen.pdf

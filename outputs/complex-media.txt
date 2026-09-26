@@ -19,7 +19,9 @@ Part A: focal-intensity bound and optimal currents
     R =   0.30: bound = 6.255418e+03   bound / (2 P_rad) = 45.830878
     R =   3.00: bound = 1.381787e+02   bound / (2 P_rad) = 1.012379
     R =  30.00: bound = 1.365055e+02   bound / (2 P_rad) = 1.000120
-    (-> 1 in the far zone, i.e. bound ∝ radiated power ∝ LDOS; >> 1 for near-field apertures)
+    open near-field patch of Part A: bound / (2 P_rad) = 0.1259
+    (-> 1 for a closed far-zone aperture, i.e. bound ∝ radiated power ∝ LDOS; a closed near-field
+     aperture can give much more, while an open aperture captures less)
 ------------------------------------------------------------------------------
 Part B: partial time reversal on a closed surface S (radius 1.00 lambda)
 ------------------------------------------------------------------------------
@@ -31,3 +33,4 @@ Part B: partial time reversal on a closed surface S (radius 1.00 lambda)
                          TR field vs -2i Im E (inside S): rel. err 1.08e-06   | outside S: vs -E 1.9e-06, vs -2i Im E 1.00
   gyrotropic             min dist scatterer-to-S 0.050 | extinction thm: inside 2.1e-07, outside 1.2e-06
                          TR field vs -2i Im E (inside S): rel. err 1.24e+00   | outside S: vs -E 1.1e+00, vs -2i Im E 1.61
+wrote figures/sec3_2_time_reversal_maps.*

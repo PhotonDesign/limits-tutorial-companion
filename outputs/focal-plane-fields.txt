@@ -3,6 +3,8 @@ Focal-plane fields of the optimal 2pi / 4pi beams (target polarization xhat)
 ==============================================================================
 2pi power: brute-force (explicit polarizations) vs 1D-quadrature: rel. err 2.1e-14
 2pi power: new closed form (with phi dependence) vs 1D-quadrature: rel. err 1.6e-14
+general NA (0.39, 0.84, 1), z != 0, both normalizations, one/two-sided: brute force vs 1D quadrature, max rel. err 3.1e-14
+2pi power, target zhat: closed form E_z = 2pi k^2 (j0 - j1/a), E_rho = -2pi i k^2 J2(a)/a vs brute force: rel. err 2.3e-15
 z = 0 plane: |E_par(2pi) - E_par(4pi)/2| / |E| = 3.2e-17;  |E_z(4pi)|/|E| = 2.4e-17
 Tutorial Eq. (E2TwoPi) vs true 2pi intensity: along phi=0 max diff 1.6e-07; along phi=pi/2 max diff 0.37
 True 2pi intensity along phi=pi/2 vs 4pi Eq. (E2optFourPi): max diff 4.0e-07

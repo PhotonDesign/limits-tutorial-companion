@@ -1,0 +1,38 @@
+============================================================================================
+Sec. 2 / 2.2  Derivative bounds and the bandwidth bound on eps(w) ~ eps_m < eps0
+============================================================================================
+A. 400 random passive media (lossless oscillators incl. Drude, absorption bands, conducting band),
+   evaluated in their transparency windows:
+   min [d(w eps)/dw - eps0]              = +1.586e-03  (>= 0: [eq:derivative_bounds], l.814)
+   min [w eps' - 2 (eps0 - eps)]          = -4.547e-13  (>= 0: sharper L&L causality bound)
+   min w eps'/(eps0 - eps) over eps < eps0 = 2.000000  (l.814 claims >= 1; the true floor is 2)
+   lossless Drude: |w eps' - 2(eps0 - eps)| = 8.9e-16  (equality)
+
+B. LP over all lossless oscillator distributions: min d eps/dw at eps(w) = eps_m (w = 1)
+   eps_m =  +0.5: min slope = 1.00000000 = 2.00000000 x (eps0 - eps_m)/w;  Drude weight fraction 1.000000
+   eps_m =  +0.0: min slope = 2.00000000 = 2.00000000 x (eps0 - eps_m)/w;  Drude weight fraction 1.000000
+   eps_m =  -1.0: min slope = 4.00000000 = 2.00000000 x (eps0 - eps_m)/w;  Drude weight fraction 1.000000
+   eps_m =  -5.0: min slope = 12.00000000 = 2.00000000 x (eps0 - eps_m)/w;  Drude weight fraction 1.000000
+   -> ENZ (eps_m = 0): slope >= 2 eps0/w0 (l.814 states eps0/w0)
+
+C. constant-slope estimate of l.814, deviation at the band edges / (eps0 - eps_m):
+   B = 0.02: printed slope (eps0-eps)/w -> 0.0100;  L&L slope 2(eps0-eps)/w -> 0.0200;  text says B = 0.0200;  true optimum 0.02000
+   B = 0.1: printed slope (eps0-eps)/w -> 0.0500;  L&L slope 2(eps0-eps)/w -> 0.1000;  text says B = 0.1000;  true optimum 0.09975
+
+D/E. min over passive media of max_band |eps - eps_m| / (eps0 - eps_m)   (eps_m = 0, band centre 1)
+    B |  printed tight lossless LP lossless Drude frac random best | G&S lossy tight lossy  LP lossy  achieved
+ 0.10 |  0.09524        0.09975     0.09975   1.000000     0.09999 |   0.04762     0.05000   0.05361   0.05387
+ 0.40 |  0.33333        0.38462     0.38462   1.000000     0.38525 |   0.16667     0.20000   0.20369   0.20465
+ 0.80 |  0.57143        0.68966     0.68966   1.000000     0.69023 |   0.28571     0.40000   0.40355   0.40542
+ 1.20 |  0.75000        0.88235     0.88235   1.000000     0.88263 |   0.37500     0.60000   0.60313   0.60732
+ 1.60 |  0.88889        0.97561     0.97561   1.000000     0.97567 |   0.44444     0.80000   0.80270   0.80822
+   lossy LP convergence at B = 0.4: hat width 0.01 -> 0.20369, 0.005 -> 0.20179  (-> B/2 = 0.2)
+   eps_m = -1, B = 0.4: achieved 0.40930 vs (eps0 - eps_m) B/2 = 0.4  (linear in eps0 - eps_m)
+
+F. split-ring model mu = 1 - F w^2/(w^2 - w0^2), F = 0.5 (passive, mu(inf) = 0.5):
+   w/w0 = 0.500: d(w mu)/dw = 1.6111,  w/w0 = 1.500: d(w mu)/dw = 1.5400,  w/w0 = 1.732: d(w mu)/dw = 1.0000,  w/w0 = 2.000: d(w mu)/dw = 0.7778,  w/w0 = 4.000: d(w mu)/dw = 0.5378
+   -> d(w mu)/dw >= mu0 fails for w > sqrt(3) w0; it holds with mu(inf) in place of mu0
+
+G. bi-isotropic [eq:absorbed] vs printed matrix form: max rel. difference 1.7e-15; PSD <=> (Im k)^2 <= Im e Im mu in 100.0% of 2000 random cases
+
+wrote /Users/owen.miller/Projects/0.Old/2024.4-AOP-Tutorial/AOP Tutorial/git/limits-tutorial-companion/figures/sec2_low_epsilon_bound.pdf/png

@@ -2,6 +2,24 @@
 
 > **Pre-publication draft (2026-09-26).** Rows marked ⚠ are cases where the numerics disagree with the *submitted* (first-round) text of the tutorial. They are listed so the authors can revise the text; once the text is revised, the ⚠ notes should be rewritten as ordinary confirmations. Tutorial equations are cited by LaTeX label. Every number below is printed by the listed script (`python run_all.py` regenerates all logs in `outputs/`).
 
+## Ch. 1 Fundamental principles (`sec1_fundamental_principles/`)
+
+| Claim | Outcome | Script |
+|:--|:--|:--|
+| Maxwell operator signs; surface-equivalence currents [eq:SEP], [eq:ECinc], [eq:ECscat] | Equivalent currents reproduce the incident field inside and zero outside (and vice versa) to 10⁻¹⁴ | `equivalence_principle.py` |
+| [eq:KKRe], [eq:KKIm], [eq:dKKRe], [eq:asymp] | ≤ 3×10⁻¹⁴ (incl. a gain oscillator). ⚠ The conductor term in [eq:KKIm] should be σ₀/(ε₀ω); ⚠ "∫₀^∞ Re χ dω = 0" holds for insulators only (Drude metal: −πσ₀/2ε₀) | `kramers_kronig.py` |
+| Bounded-real S, [eq:SMatRep], T-matrix Herglotz form, [eq:h_sum_rules] | Confirmed (Poisson formula 9×10⁻⁸; sum rules to 8 digits); the port-placement caveat reproduced | `passivity_herglotz.py` |
+| [eq:FanThm], [eq:HW2] | Hold with equality to 10⁻⁸. ⚠ [eq:HW1] needs B ⪰ 0 (or square X): counterexamples 4.455 vs 2.200 | `rayleigh_quotients.py` |
+
+## Ch. 2 Material bounds (`sec2_material_bounds/`)
+
+| Claim | Outcome | Script |
+|:--|:--|:--|
+| ⚠ [eq:max_n] maximum refractive index | The single-oscillator optimum satisfies (n²−1)²/n = ω_p²n′/ω exactly (LP ratio 0.99999); the printed ((n²−1)/n)² is n× looser and does not imply the cube-root law [eq:max_n_large] | `max_refractive_index.py` |
+| ⚠ Lossless slope bound dε/dω ≥ (ε₀−ε)/ω (l. 814) | Valid but loose by 2: lossless media obey dε/dω ≥ 2(ε₀−ε)/ω (min ratio over random media 2.000000; Drude equality), which is what the subsequent (ε₀−ε_m)B estimate requires | `dispersion_bandwidth_bounds.py` |
+| [eq:low_epsilon_bound] | Never violated but loose: LP over lossless oscillator distributions gives the optimum (ε₀−ε_m)B/(1+B²/4), attained by a Drude medium; the lossy optimum → (ε₀−ε_m)B/2 | same |
+| f-sum rule, loss bound, TRK, quoted numbers | Confirmed (loss bound tight for a box-shaped absorption band) | `sum_rules_and_estimates.py` |
+
 ## Sec. 3.1 Free-space focusing (`sec3_1_free_space_focusing/`)
 
 | Claim | Outcome | Script |
