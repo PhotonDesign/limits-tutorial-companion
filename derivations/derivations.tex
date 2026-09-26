@@ -47,7 +47,7 @@
 \maketitle
 
 \begin{abstract}
-These notes collect the derivations behind the free-space focusing results (tutorial Sec.~3.1) and the complex-media focusing results (Sec.~3.2) of the tutorial by Miller and Monticone, at a level of detail that would be out of place in a tutorial of that breadth. Every closed-form result is checked numerically by a script in the accompanying repository. Each check is independent of the derivation it tests, e.g.\ brute-force quadrature with explicit polarization vectors, or a full multiple-scattering model. The achieved agreement is quoted in green alongside each result. Several results here are new relative to the tutorial text: closed forms for the full (anisotropic) focal-plane fields, the exact energy penalties for super-oscillatory spots, a closed form for the three-dimensional space-time focus, and explicit symmetry conditions for the point-dipole media used to test Sec.~3.2.
+These notes collect the derivations behind the free-space focusing results (tutorial Sec.~3.1) and the complex-media focusing results (Sec.~3.2) of the tutorial by Miller and Monticone, at a level of detail that would be out of place in a tutorial of that breadth. The main closed-form results are checked numerically by scripts in the accompanying repository. Each check is independent of the derivation it tests, e.g.\ brute-force quadrature with explicit polarization vectors, or a full multiple-scattering model. The achieved agreement is quoted in green alongside each result. Several results here are new relative to the tutorial text: closed forms for the full (anisotropic) focal-plane fields, the exact energy penalties for super-oscillatory spots, a closed form for the three-dimensional space-time focus, and explicit symmetry conditions for the point-dipole media used to test Sec.~3.2.
 \end{abstract}
 
 \tableofcontents
@@ -71,12 +71,12 @@ the first being the Jacobi--Anger (``Hansen--Bessel'') identity, and the second 
 \end{align}
 together with the elementary results $\int_0^s \beta J_0(a\beta){\rm d}\beta = sJ_1(as)/a$, $\int_0^s\beta^2J_1(a\beta){\rm d}\beta=s^2J_2(as)/a$, and $\int_0^s\beta^3J_2(a\beta){\rm d}\beta=s^3J_3(as)/a$ (all from $\tfrac{{\rm d}}{{\rm d}x}[x^{n}J_n(x)]=x^nJ_{n-1}(x)$), and $\int_0^s\beta^3J_0(a\beta){\rm d}\beta = s^3J_1(as)/a-2s^2J_2(as)/a^2$.
 
-\paragraph{The extremal-eigenvalue lemma.} Every bound in these notes is an instance of the following. For a linear functional $f(c)=\langle v,c\rangle$ and a positive weight $g$,
+\paragraph{The extremal-eigenvalue lemma.} Most bounds in these notes are instances of the following. For a linear functional $f(c)=\langle v,c\rangle$ and a positive weight $g$,
 \begin{align}
     \frac{|\langle v,c\rangle|^2}{\langle c, g\,c\rangle} \le \langle v, g^{-1} v\rangle, \qquad \text{with equality iff } c\propto g^{-1}v,
     \label{eq:CS}
 \end{align}
-by the Cauchy--Schwarz inequality applied to $g^{1/2}c$ and $g^{-1/2}v$. Equivalently, the quadratic form $c^\dagger(v v^\dagger)c$ is rank one, so its Rayleigh quotient is maximized by its only nonzero eigenvector.
+by the Cauchy--Schwarz inequality applied to $g^{1/2}c$ and $g^{-1/2}v$. Equivalently, the generalized Rayleigh quotient $c^\dagger(vv^\dagger)c/c^\dagger gc$ is maximized by the only nonzero eigenvector of the rank-one operator $g^{-1}vv^\dagger$.
 
 %=============================================================================
 \section{Focusing from a cone of plane waves (tutorial Sec.~3.1.2)}
@@ -167,10 +167,14 @@ At equal physical power, then, the power-optimal beam exceeds the amplitude-opti
 \paragraph{Reference beams and comparison with Dias \& Garc\'ia de Abajo.} For a family of reference beams $c_p\propto(k_z/k)^n(\xhat\cdot\ep)^*$, the same algebra gives, at $2\pi$ solid angle and per unit physical power,
 \begin{align}
     \frac{2\pi c}{k^2}\frac{\varepsilon_0|\Ev(0)|^2}{P}=\frac{\big[\tfrac1{n+2}+\tfrac1{n+4}\big]^2}{\tfrac1{2n+3}+\tfrac1{2n+5}}
-    =\begin{cases}4/3 & n=-1\ (\text{power-optimal})\\ 1.2094 & n=-\tfrac12\ (\text{aplanatic lens, uniform pupil})\\ 135/128 & n=0\ (\text{amplitude-optimal})\\ 0.9292 & n=\tfrac12.\end{cases}
+    =\begin{cases}4/3 & n=-1\ (\text{power-optimal})\\ 1.2094 & n=-\tfrac12\\ 135/128 & n=0\ (\text{amplitude-optimal})\\ 0.9292 & n=\tfrac12.\end{cases}
 \end{align}
-The last case is the ``diffraction-limited Gaussian'' reference of Dias and Garc\'ia de Abajo (their $\beta\propto\hat{\vect n}\cdot\hat{\vect e}\sqrt{k_z/k}$). The optimum exceeds it by $1.435$, the factor $\approx1.43$ quoted in the tutorial. Against an aplanatic lens with uniformly filled pupil, $c\propto(k/k_z)^{1/2}$, the advantage is only $1.10$. Their focal-intensity result, Eq.~(4) of that paper, $\max|\Ev(0)|^2/P_{\rm inc}=4\omega^2/3c^3$ for $4\pi$ in Gaussian units with $\Ev_{\rm phys}=2\Re[\Ev e^{-i\omega t}]$, agrees exactly with $(2\pi c/k^2)\varepsilon_0|\Ev|^2/P=8/3$ derived here: converting to Gaussian units gives $|\Ev|^2/P=16\omega^2/3c^3$, and halving the amplitude convention divides this by 4. The time-averaged energy density in their convention is $(|\Ev|^2+|\Hv|^2)/4\pi$, not $/8\pi$, which accounts for the factor of 2 between their energy-density bound and that of Bassett (and \eqref{eq:bounds}).
-\numcheck{\code{focal\_intensity\_bounds.py}: closed form vs.\ explicit synthesis for $n=-1,-\tfrac12,0,\tfrac12,1$, agreement to 6 digits}
+The last case is the ``diffraction-limited Gaussian'' reference of Dias and Garc\'ia de Abajo (their $\beta\propto\hat{\vect n}\cdot\hat{\vect e}\sqrt{k_z/k}$). The optimum exceeds it by $1.435$, the factor $\approx1.43$ quoted in the tutorial. An aplanatic lens with a uniformly filled pupil (Richards--Wolf, $\Ev_\infty\propto\sqrt{\cos\theta'}\,(\cos\varphi'\hat{\bm\theta}-\sin\varphi'\hat{\bm\phi})$) is \emph{not} a member of this family: its TM component lacks the factor $\cos\theta'$ of $(\II-\khat\khat^{\rm T})\xhat$. It delivers
+\begin{align*}
+    \frac{2\pi c}{k^2}\frac{\varepsilon_0|\Ev(0)|^2}{P}=\frac{I_a^2}{\sin^2\theta},\qquad I_a=\tfrac23\big(1-\cos^{3/2}\theta\big)+\tfrac25\big(1-\cos^{5/2}\theta\big),
+\end{align*}
+i.e.\ $(16/15)^2=1.138$ at $2\pi$ (the optimum is $1.17\times$ larger) and $0.651$ at $\sin\theta=0.8$, only 1.7\% below the optimum $0.661$. Their focal-intensity result, Eq.~(4) of that paper, $\max|\Ev(0)|^2/P_{\rm inc}=4\omega^2/3c^3$ for $4\pi$ in Gaussian units with $\Ev_{\rm phys}=2\Re[\Ev e^{-i\omega t}]$, agrees exactly with $(2\pi c/k^2)\varepsilon_0|\Ev|^2/P=8/3$ derived here: converting to Gaussian units gives $|\Ev|^2/P=16\omega^2/3c^3$, and halving the amplitude convention divides this by 4. Likewise their one-sided $2\omega^2/3c^3$ corresponds to $4/3$. The factor of 2 concerns only energy densities. In their convention the time-averaged energy density is $(|\Ev|^2+|\Hv|^2)/4\pi$, not $/8\pi$. Because $\Hv(0)=0$ at the $4\pi$ focus, this accounts exactly for the factor of 2 between their $4\pi$ energy-density bound and Bassett's ($k^2/3\pi c$ here). At $2\pi$, $\Hv(0)\neq0$ ($Z_0|\Hv(0)|=\tfrac34|\Ev(0)|$), so energy densities that include the magnetic term differ further.
+\numcheck{\code{focal\_intensity\_bounds.py}: closed form vs.\ explicit synthesis for $n=-1,-\tfrac12,0,\tfrac12,1$ and for the aplanatic lens (explicit $\hat{\bm\theta},\hat{\bm\phi}$ vectors), agreement to 6 digits; $Z_0|\Hv(0)|/|\Ev(0)|=0.750000$}
 
 \begin{figure}[tb]
 \centering
@@ -199,7 +203,7 @@ with $u=a\sin\theta'$. Hence, with $w(\theta')=1$ (power) or $|\cos\theta'|$ (am
     E_z &= -2\pi i k^2\cos\phi\!\int\!{\rm d}\theta'\,\sin^2\theta'\cos\theta'\,w\,e^{ikz\cos\theta'}J_1(u), \nonumber
 \end{align}
 with $\theta'\in[0,\theta]$ for one-sided excitation, and in addition $\theta'\in[\pi-\theta,\pi]$ for two-sided excitation. The focal spot is \emph{not} rotationally symmetric: $E_x$ depends on $\cos2\phi$, and $E_y\propto\sin2\phi$ and $E_z\propto\cos\phi$ both vanish on the axes. In particular $E_z$ is antisymmetric in $x$, with two lobes of opposite sign on either side of the focus along the polarization axis.
-\numcheck{\code{focal\_plane\_fields.py}: \eqref{eq:fields1D} vs.\ brute-force 2D quadrature with explicit polarization vectors, rel.\ error $2\times10^{-14}$}
+\numcheck{\code{focal\_plane\_fields.py}: \eqref{eq:fields1D} vs.\ brute-force 2D quadrature with explicit polarization vectors, for $\theta=0.4,1,\pi/2$, $z\neq0$, both normalizations, one- and two-sided excitation: rel.\ error $\le3\times10^{-14}$}
 
 \subsection{Closed forms at \texorpdfstring{$2\pi$}{2 pi} solid angle}
 For the power-optimal beam at $\theta=\pi/2$ and $z=0$, substitute $\beta=\sin\theta'$, so that $\sin\theta'{\rm d}\theta'=\beta\,{\rm d}\beta/\sqrt{1-\beta^2}$. The integrals reduce to the cases \eqref{eq:SonineCases}, together with
@@ -254,7 +258,7 @@ E_x\simeq\int_{|\kp|\le k\sin\theta}\dkk\,e^{i\kp\cdot\xp}=2\pi k^2\sin^2\theta\
 
 \begin{table}[tb]
 \centering
-\caption{Full widths at half maximum of $|\Ev|^2$ and locations of the first minimum, in wavelengths (paraxial row in units of $\lambda/\sin\theta$). ``First min.'' is a true zero only where $I/I_0\approx0$. The $4\pi$ beam is isotropic in the plane perpendicular to its polarization, so its $y$ and $z$ rows coincide.}
+\caption{Full widths at half maximum of $|\Ev|^2$ and radii of the first minimum (measured from the focus), in wavelengths (paraxial row in units of $\lambda/\sin\theta$). ``First min.'' is a true zero only where $I/I_0\approx0$. The $4\pi$ beam is isotropic in the plane perpendicular to its polarization, so its $y$ and $z$ rows coincide.}
 \label{tab:widths}
 \begin{tabular}{llccc}
 \toprule
@@ -296,14 +300,14 @@ Using $j_0'=-j_1$ and $j_1'=j_0-2j_1/x$ ($x=kr$):
 \end{align}
 where $\mathsf G_0=(\II+\nabla\nabla/k^2)e^{ikr}/(4\pi r)$ is the free-space dyadic Green's function.
 \numcheck{\code{fourpi\_spherical\_waves.py}: $8\times10^{-15}$}
-The $4\pi$-optimal field is thus $\Im\mathsf G_0$ (the time-reversal field of Sec.~\ref{sec:TR}), and the $2\pi$-optimal field is ``half of $\Im\mathsf G_0$'', restricted to one hemisphere of directions. In the plane perpendicular to $\qhat$ ($\rhat\cdot\qhat=0$) the field is $4\pi k^2(j_0-j_1/x)\qhat$, isotropic in that plane. Along $\qhat$ it is $8\pi k^2(j_1/x)\qhat$.
+The $4\pi$-optimal field is thus $\Im\mathsf G_0$ (the time-reversal field of Sec.~\ref{sec:TR}). The $2\pi$-optimal field is the same Herglotz integral restricted to one hemisphere of directions; in the focal plane its in-plane components are exactly half of the $4\pi$ field (Sec.~3.2). In the plane perpendicular to $\qhat$ ($\rhat\cdot\qhat=0$) the field is $4\pi k^2(j_0-j_1/x)\qhat$, isotropic in that plane. Along $\qhat$ it is $8\pi k^2(j_1/x)\qhat$.
 
 \subsection{Vector spherical waves}
 Define normalized vector spherical waves $\Mv_{\ell m}=z_\ell(kr)\vect X_{\ell m}$ and $\Nv_{\ell m}=k^{-1}\nabla\times\Mv_{\ell m}$, with $\vect X_{\ell m}=\vect L Y_{\ell m}/\sqrt{\ell(\ell+1)}$. Explicitly,
 \begin{align}
     \Nv_{\ell m} = i\left[\sqrt{\ell(\ell+1)}\,\frac{z_\ell(x)}{x}Y_{\ell m}\rhat+\frac{1}{\sqrt{\ell(\ell+1)}}\,\frac{1}{x}\frac{{\rm d}[xz_\ell(x)]}{{\rm d}x}\nabla_sY_{\ell m}\right],
 \end{align}
-with $\nabla_s=\hat{\bm\theta}\partial_\theta+\hat{\bm\phi}\sin^{-1}\!\theta\,\partial_\phi$ and $z_\ell\in\{j_\ell,h^{(1)}_\ell,h^{(2)}_\ell\}$.
+with $\nabla_s=\hat{\bm\theta}\partial_\theta+\hat{\bm\phi}\sin^{-1}\!\theta\,\partial_\phi$ and $z_\ell\in\{j_\ell,h^{(1)}_\ell,h^{(2)}_\ell\}$. These normalized waves equal $i/\sqrt{\ell(\ell+1)}$ times the tutorial's $k^{-1}\nabla\times\nabla\times(\xv z_\ell Y_{\ell m})$. The values $|\Nv_{1,0}(0)|=\tfrac23\sqrt{3/8\pi}$ and $P_{\rm in}=1/(8Z_0k^2)$ quoted there hold for the normalized waves; the ratio $U/P_{\rm in}$ is normalization independent.
 \numcheck{finite-difference $\nabla\times\Mv$ vs.\ $k\Nv$: $2\times10^{-10}$}
 For regular waves at $r\to0$: $\Mv_{\ell m}\propto j_\ell\to0$; the radial part of $\Nv_{\ell m}$ is $\propto j_\ell(x)/x$, and the tangential part $\propto x^{-1}{\rm d}(xj_\ell)/{\rm d}x\to(\ell+1)x^{\ell-1}/(2\ell+1)!!$. Both vanish unless $\ell=1$. At the origin only the three electric-dipole waves survive, and
 \begin{align}
@@ -318,7 +322,7 @@ In the equatorial plane, ${\rm d}(xj_1)/{\rm d}x=xj_0-j_1$ gives $\Nv_{1,0}=-i\s
     \frac{U(\xv_0)}{P_{\rm in}}=\frac{\tfrac14\varepsilon_0\cdot\tfrac49\cdot\tfrac{3}{8\pi}}{1/(8Z_0k^2)}=\frac{k^2}{3\pi c}.
 \end{align}
 \numcheck{inward Poynting flux at $R=3,30,300$: 0.1250000000; $U/P_{\rm in}=0.1061032954=1/(3\pi)$}
-The three channels $\Nv_{1,m}$ have mutually orthogonal values at the origin and orthogonal fluxes. For any target $\qhat$, \eqref{eq:CS} therefore gives $\max|\qhat^*\cdot\Ev(0)|^2/P_{\rm in}=\sum_m|\qhat^*\cdot\Nv_{1m}(0)|^2/P_1=|\Nv_{10}(0)|^2/P_1$, which is independent of $\qhat$.
+The three channels $\Nv_{1,m}$ have mutually orthogonal values at the origin and orthogonal fluxes. For any target $\qhat$, \eqref{eq:CS} therefore gives $\max|\qhat^*\cdot\Ev(0)|^2/P_{\rm in}=\sum_m|\qhat^*\cdot\Nv_{1m}(0)|^2/P_1=|\Nv_{10}(0)|^2/P_1$, where $P_1=1/(8Z_0k^2)$ is the incoming power of each channel. This is independent of $\qhat$.
 
 \paragraph{Doubling, in the plane-wave picture.} For a Herglotz wave $\Ev=\int\dO\,\vect a(\khat)e^{ik\khat\cdot\xv}$, stationary phase gives $\Ev\sim(2\pi/ikr)[\vect a(\rhat)e^{ikr}-\vect a(-\rhat)e^{-ikr}]$ as $r\to\infty$, so $P_{\rm in}=(2\pi^2/Z_0k^2)\int|\vect a|^2\dO$. For a one-sided beam this equals the $z$-directed power \eqref{eq:Power}, by \eqref{eq:dOmega}. With $\vect a=k^2(\II-\khat\khat^{\rm T})\qhat$: $|\Ev(0)|^2=(8\pi k^2/3)^2$ and $P_{\rm in}=(2\pi^2/Z_0)(8\pi/3)k^2$ for the full sphere, so $(2\pi c/k^2)\varepsilon_0|\Ev(0)|^2/P_{\rm in}=8/3$. Each hemisphere alone carries half the power and half the field, giving the $2\pi$ value $4/3$. The full-sphere Herglotz wave is proportional to $\Nv_{1,0}^{\rm reg}$ (ratio constant to $5\times10^{-12}$), and its incoming power computed from the VSW coefficient agrees with the stationary-phase value, $16\pi^3/3$, to all printed digits.
 
@@ -337,7 +341,7 @@ For $E(x)=\int_{-k_m}^{k_m}c(k)e^{ikx}{\rm d}k$ the field energy is $\int|E|^2{\
     \min\int|c|^2{\rm d}k\ \to\ \frac{2k_m}{2k_m\cdot k_m^5\delta^4/10-k_m^6\delta^4/9}=\frac{45}{2k_m^5\delta^4},
     \qquad\frac{\text{constrained}}{\text{unconstrained}}\to\frac{45}{(k_m\delta)^4}.
 \end{align}
-The unconstrained optimum ($c$ uniform, energy $1/2k_m$) is the sinc beam, whose first zero is at $k_m\delta=\pi$, where the penalty is exactly 1. Halving the spot ($k_m\delta=\pi/2$) costs a factor of 5.28. The asymptotic formula overestimates this, predicting 7.4.
+The unconstrained optimum ($c$ uniform, $\int|c|^2=1/2k_m$) is the sinc beam, whose first zero is at $k_m\delta=\pi$, where the penalty is exactly 1. Halving the spot ($k_m\delta=\pi/2$) costs a factor of 5.28. The asymptotic formula overestimates this, predicting 7.4.
 \numcheck{\code{superoscillation.py}: exact vs.\ asymptote ratio 0.9998 at $k_m\delta=0.03$}
 
 \subsection{Zero ring in two dimensions}
@@ -357,7 +361,7 @@ with $S_{\max}=1$ at the Airy zero $u=3.8317$. The expansion follows from $[2J_1
 %=============================================================================
 \section{Space-time focusing (tutorial Sec.~3.1.5)}
 %=============================================================================
-Under amplitude normalization $\int\!\int|c(\kv,\omega)|^2=1$, \eqref{eq:CS} makes the optimal $c$ uniform on the support. For the 1D line (transverse wavenumber $|k|\le|\omega|/c$, $|\omega|\le\omega_m$):
+Under amplitude normalization $\int\!\int|c(\kv,\omega)|^2=1$, \eqref{eq:CS} makes the optimal $c$ uniform on the support. For the line focus of the tutorial (2D propagation, transverse wavenumber $|k|\le|\omega|/c$, $|\omega|\le\omega_m$):
 \begin{align}
     \psi(x,t)&=\int_{-\omega_m}^{\omega_m}\!{\rm d}\omega\,\frac{2\sin(|\omega|x/c)}{x}e^{-i\omega t}
     =\frac{2}{x}\int_0^{\omega_m}\!\Big[\sin\omega\Big(\frac xc+t\Big)+\sin\omega\Big(\frac xc-t\Big)\Big]{\rm d}\omega\nonumber\\
@@ -366,14 +370,14 @@ Under amplitude normalization $\int\!\int|c(\kv,\omega)|^2=1$, \eqref{eq:CS} mak
 which is the tutorial's result. At $t=0$ it is $\propto\sin^2(\omega_mx/2c)/x^2$, with first zero at $2\pi c/\omega_m$, twice that of $\sin(\omega_mx/c)/x$.
 \numcheck{\code{spacetime\_focusing.py}: vs.\ direct $(\omega,k)$ quadrature, $1.5\times10^{-14}$}
 
-\paragraph{Three dimensions.} With uniform weight in $\omega$, the $t=0$ radial profile is $\int_0^{\omega_m}[j_0-j_1/u]_{u=\omega\rho/c}{\rm d}\omega=(c/\rho)\int_0^U(j_0-j_1/u){\rm d}u$ with $U=\omega_m\rho/c$. Using $\int_0^U j_1(u)/u\,{\rm d}u=\tfrac12[\Si(U)+\cos U/U-\sin U/U^2]$:
+\paragraph{Three dimensions.} With uniform Herglotz density per ${\rm d}\Omega\,{\rm d}\omega$, the $t=0$ radial profile is $\int_0^{\omega_m}[j_0-j_1/u]_{u=\omega\rho/c}{\rm d}\omega=(c/\rho)\int_0^U(j_0-j_1/u){\rm d}u$ with $U=\omega_m\rho/c$. Using $\int_0^U j_1(u)/u\,{\rm d}u=\tfrac12[\Si(U)+\cos U/U-\sin U/U^2]$:
 \begin{align}
     \psi_{\rm 3D}(\rho,0)\propto\frac{\Si(U)+j_1(U)}{U}=\frac43\Big[1-\frac{U^2}{15}+\dots\Big]\quad(U\to0),\qquad \to\frac{\pi}{2U}\quad(U\to\infty).
 \end{align}
-Because $\Si(U)>|j_1(U)|$ for all $U>0$, this profile has \emph{no zeros} and a non-oscillatory $1/\rho$ tail. Its intensity half width at half maximum is $1.80\times$ that of the single-frequency profile $j_0-j_1/U$. The 1D features (faster side-lobe decay, first zero doubled) are therefore specific to the 1D line.
-\numcheck{closed form vs.\ quadrature $10^{-14}$; minimum over $0<U\le200$ is $+5.9\times10^{-3}$}
+Because $\Si(U)-|j_1(U)|\ge0.33$ for $U\ge0.5$ (and both are positive below), this profile has \emph{no zeros}. Asymptotically it is $[\pi/2-2\cos U/U]/U$: a positive $\pi/(2U)$ tail with an $O(U^{-2})$ ripple, with shallow minima at $U=6.88,13.3,\dots$ where $\psi/\psi_0=0.146,0.082,\dots$. Its intensity half width at half maximum is $1.80\times$ that of the single-frequency profile $j_0-j_1/U$. The features emphasized for the line focus (side lobes decaying faster, first zero doubled) therefore do not carry over to 3D.
+\numcheck{closed form vs.\ quadrature $10^{-14}$; $\min_{U\ge0.5}[\Si(U)-|j_1(U)|]=0.331$}
 
-\paragraph{Dependence on the normalization.} Physical energy normalization changes the optimal weights. On the 2D line the per-frequency cost is $\int(k_z/k)|c|^2{\rm d}k_x$, so $c\propto k/k_z$ and the $t=0$ profile becomes $\int_0^{\omega_m}\omega J_0(\omega x/c){\rm d}\omega\propto J_1(U)/U$ (versus single-frequency $J_0(U)$; first-zero ratio 1.593). In 3D the incoming energy of a Herglotz pulse is $\propto\int{\rm d}\omega\int\dO|\vect a|^2/\omega^2$, so $\vect a\propto\omega^2$ and the profile is $\propto[2\sin U-U\cos U-\Si(U)]/U^3$, which does have zeros (first at $U=3.797$, versus 2.744 for a single frequency). The qualitative conclusion, that temporal localization costs spatial localization, survives. The factor of 2 and the side-lobe behavior do not.
+\paragraph{Dependence on the normalization.} Physical energy normalization changes the optimal weights. For the line focus the per-frequency cost is $\int(k_z/k)|c|^2{\rm d}k_x$, so $c\propto k/k_z$ and the $t=0$ profile becomes $\int_0^{\omega_m}\omega J_0(\omega x/c){\rm d}\omega\propto J_1(U)/U$ (versus single-frequency $J_0(U)$; first-zero ratio 1.593). In 3D the incoming energy of a Herglotz pulse is $\propto\int{\rm d}\omega\int\dO|\vect a|^2/\omega^2$, so $\vect a\propto\omega^2$ and the profile is $\propto[2\sin U-U\cos U-\Si(U)]/U^3$, which does have zeros (first at $U=3.796$, versus 2.744 for a single frequency). The qualitative conclusion, that temporal localization costs spatial localization, survives. The factor of 2 and the side-lobe behavior do not.
 
 \begin{figure}[tb]
 \centering
@@ -391,10 +395,10 @@ Currents $s$ on an aperture $A$ produce $\psi(\xv_0)=\Gamma_{0A}s$. For a target
 \end{align}
 Nothing about the medium has been assumed. If the medium is reciprocal, $\Gamma(\xv_0,\xv')^{\rm T}=\Gamma(\xv',\xv_0)$, then $(\Gamma_{0A}^\dagger\phi)(\xv')=[\Gamma(\xv',\xv_0)\phi^*]^*$, the conjugate of the field on $A$ radiated by a dipole $\phi^*$ at $\xv_0$. If the medium is not reciprocal, generalized reciprocity $\Gamma_\nu(\xv,\xv')^{\rm T}=\Gamma_{\nu^{\rm T}}(\xv',\xv)$ gives the same recipe in the \emph{transposed} medium.
 
-\paragraph{Far-field aperture and the LDOS.} For a closed aperture in the far zone of a lossless medium, $|\Ev|=Z_0|\Hv|$ and $\int_A|\Ev_0|^2{\rm d}A=2Z_0P_{\rm rad}$, where $P_{\rm rad}=\tfrac\omega2\Im(\pv^*\cdot\Ev(\xv_0))$ is the power radiated by the dipole, i.e.\ the LDOS. For apertures in the near field the bound is larger.
+\paragraph{Far-field aperture and the LDOS.} For a closed aperture in the far zone of a lossless medium, $|\Ev|=Z_0|\Hv|$ and $\int_A|\Ev_0|^2{\rm d}A=2Z_0P_{\rm rad}$, where $P_{\rm rad}=\tfrac\omega2\Im(\pv^*\cdot\Ev(\xv_0))$ is the power radiated by the dipole, i.e.\ the LDOS. A closed aperture in the near field can give a much larger bound (below: $95\times$ for a sphere of radius $0.06\lambda$), whereas an open aperture captures less ($0.13\times$ for the near-field patch of Table~\ref{tab:recipe}).
 
 \subsection{A point-dipole medium with controllable symmetries}\label{sec:dipole-medium}
-To test these statements we use electric point scatterers $\pv_j=\alpha_j\Ev_{\rm loc}(\xv_j)$ with $\alpha_j^{-1}=\alpha_{0,j}^{-1}-i\tfrac{k^3}{6\pi\varepsilon_0}\II$, where the radiation-reaction term is $\varepsilon_0^{-1}k^2\Im\mathsf G_0(0)$. With $\Ev=\varepsilon_0^{-1}k^2\mathsf G_0\pv$, the medium Green's function is
+To test these statements we use electric point scatterers $\pv_j=\alpha_j\Ev_{\rm loc}(\xv_j)$, where $\Ev_{\rm loc}$ is the field at $\xv_j$ due to all sources other than dipole $j$ itself, with $\alpha_j^{-1}=\alpha_{0,j}^{-1}-i\tfrac{k^3}{6\pi\varepsilon_0}\II$, where the radiation-reaction term is $\varepsilon_0^{-1}k^2\Im\mathsf G_0(0)$. With $\Ev=\varepsilon_0^{-1}k^2\mathsf G_0\pv$, the medium Green's function is
 \begin{align}
     \Gamma(\xv,\xv')=\frac{k^2}{\varepsilon_0}\Big[\mathsf G_0(\xv,\xv')+\frac{k^2}{\varepsilon_0}\mathsf G_0(\xv,S)\,\mathsf T\,\mathsf G_0(S,\xv')\Big],\qquad \mathsf T=\big(\operatorname{diag}\alpha_j^{-1}-\tfrac{k^2}{\varepsilon_0}\mathsf G_{SS}\big)^{-1},
 \end{align}
@@ -402,9 +406,9 @@ where $\mathsf G_{SS}$ couples distinct scatterers. All blocks of $\mathsf G_0$ 
 \begin{itemize}
 \item \emph{reciprocal} $\Leftrightarrow\alpha_0^{\rm T}=\alpha_0$. In general, $\Gamma_{\alpha}(\xv,\xv')^{\rm T}=\Gamma_{\alpha^{\rm T}}(\xv',\xv)$.
 \item \emph{lossless} $\Leftrightarrow\alpha_0^\dagger=\alpha_0$. The power absorbed by dipole $j$ is $\tfrac\omega2\pv^\dagger\big[(\alpha_0^{-1})^\dagger-\alpha_0^{-1}\big]\pv/(2i)$, the radiation-reaction term accounting exactly for the scattered power $\tfrac{\omega k^3}{12\pi\varepsilon_0}|\pv|^2$.
-\item \emph{time-reversal invariant} $\Leftrightarrow\alpha_0$ real. Under $(\Ev,\Hv,\pv,\mv)\to(\Ev^*,-\Hv^*,\pv^*,-\mv^*)$ the constitutive relation $\pv=\alpha_0\Ev_{\rm loc}$ maps to itself iff $\alpha_0^*=\alpha_0$. The radiation-reaction term is part of the outgoing boundary condition, not of the medium.
+\item \emph{time-reversal invariant} $\Leftrightarrow\alpha_0$ real. Equivalently $\pv=\alpha_0\big[\Ev_{\rm loc}+i\tfrac{k^3}{6\pi\varepsilon_0}\pv\big]$: $\alpha_0$ acts on the regular part of the total field at the dipole. Under $(\Ev,\Hv,\pv,\mv)\to(\Ev^*,-\Hv^*,\pv^*,-\mv^*)$ this constitutive relation, with the regular field in a closed (e.g.\ PEC-terminated) system, maps to itself iff $\alpha_0^*=\alpha_0$. The radiation-reaction term is part of the outgoing boundary condition, not of the medium.
 \end{itemize}
-The four test media are lossless reciprocal ($\alpha_0$ real symmetric), lossy reciprocal (complex symmetric), \emph{TRI but non-reciprocal} (real, non-symmetric), and gyrotropic (Hermitian, non-symmetric: lossless, non-reciprocal, non-TRI).
+The four test media are lossless reciprocal ($\alpha_0$ real symmetric), lossy reciprocal (complex symmetric), \emph{TRI but non-reciprocal} (real, non-symmetric), and gyrotropic (Hermitian, non-symmetric: lossless, non-reciprocal, non-TRI). A real non-symmetric $\alpha_0$ is not Hermitian; the anti-Hermitian part of $\alpha_0^{-1}$ has eigenvalues of both signs, so the TRI non-reciprocal medium has both gain and loss channels. In this model, lossless and TRI together imply reciprocal. That medium is included to separate the roles of time-reversal invariance and reciprocity, not as a passive material.
 
 \subsection{Numerical results}
 Table~\ref{tab:recipe} tests the bound and the recipes with random clusters of 16 scatterers in a $\lambda^3$ box, a random complex target polarization, and electric currents on either an open near-field patch or a closed sphere of radius $6\lambda$. $\Gamma$ is built directly from $\mathsf T$, without invoking reciprocity. The iterative eigen-solution of the full operator confirms the rank-one maximum in all cases (rel.\ difference $\le2\times10^{-15}$).
@@ -429,18 +433,18 @@ gyrotropic & 0.265 & 1.00000000 & 0.231 & 1.00000000\\
 For the LDOS connection, closed spheres about $\xv_0$ in the lossless reciprocal medium give bound$/(2P_{\rm rad})$ = 94.8, 45.8, 1.012 and 1.00012 for $R=0.06$, 0.3, 3 and $30\lambda$. The sphere with $R=0.3\lambda$ passes through the cluster, and any aperture is allowed.
 
 \subsection{Partial time reversal on a closed surface}\label{sec:TR}
-In the representation $\psi=(\Ev,i\Hv)$, $s=(i\Jv_e,-\Jv_m)$ of the tutorial, complex conjugation is time reversal: $\Ev\to\Ev^*$, $\Hv\to-\Hv^*$, $\Jv_e\to-\Jv_e^*$, $\Jv_m\to\Jv_m^*$ (for point dipoles, $\pv\to\pv^*$, $\mv\to-\mv^*$). The four-step construction of the tutorial proceeds as follows. The Love currents $\Jv_s=\nhat\times\Hv$, $\Jv_{m,s}=-\nhat\times\Ev$ on a closed surface $S$ enclosing all sources and scatterers radiate $(\Ev,\Hv)$ outside $S$ and zero inside, in the actual medium, since the scatterers inside $S$ see no field. Their negatives are the perfectly cancelling currents $s_{\rm pcc}$. If the medium is TRI, conjugation gives $M\psi^*=s_0^*+s_{\rm pcc}^*$, so
+In the representation $\psi=(\Ev,i\Hv)$, $s=(i\Jv_e,-\Jv_m)$ of the tutorial, complex conjugation is time reversal: $\Ev\to\Ev^*$, $\Hv\to-\Hv^*$, $\Jv_e\to-\Jv_e^*$, $\Jv_m\to\Jv_m^*$ (for point dipoles, $\pv\to\pv^*$, $\mv\to-\mv^*$). The four-step construction of the tutorial proceeds as follows. The Love currents $\Jv_s=\nhat\times\Hv$, $\Jv_{m,s}=-\nhat\times\Ev$ on a closed surface $S$ enclosing all sources and scatterers radiate $(\Ev,\Hv)$ outside $S$ and zero inside, in the actual medium, since the scatterers inside $S$ see no field. Their negatives are the perfectly cancelling currents $s_{\rm pcc}$. The field of $s_0+s_{\rm pcc}$ is $\tilde\psi=\psi$ inside $S$ and $0$ outside. If the medium is TRI, conjugation gives $M\tilde\psi^*=s_0^*+s_{\rm pcc}^*$, so
 \begin{align}
-    \psi_{\rm TR}\equiv\Gamma s_{\rm pcc}^*=\psi^*-\Gamma s_0^*=
+    \psi_{\rm TR}\equiv\Gamma s_{\rm pcc}^*=\tilde\psi^*-\Gamma s_0^*=
     \begin{cases}-2i\Im\psi & \xv\text{ inside }S\ (s_0\text{ real}),\\ -\Gamma s_0^* & \xv\text{ outside }S.\end{cases}
 \end{align}
 The entrywise-$\Im\Gamma$ form of the tutorial therefore holds for field points inside $S$. Reciprocity was not used at any step.
 
-The numerical test uses a real dipole inside a sphere $S$ of radius $\lambda$, with one scatterer placed $0.05\lambda$ from $S$ to test the claim that no far-field assumption is needed. Fields and Love currents are evaluated with a $180\times360$ Gauss--Legendre$\times$trapezoid quadrature on $S$. Time-reversed currents are radiated in the medium, and the result is compared with $-2i\Im\Ev$ at 25 interior points:
+The numerical test uses a real dipole inside a sphere $S$ of radius $\lambda$, with one scatterer placed $0.05\lambda$ from $S$ to test the claim that no far-field assumption is needed. Fields and Love currents are evaluated with a $180\times360$ Gauss--Legendre$\times$trapezoid quadrature on $S$. Time-reversed currents are radiated in the medium, and the result is compared with $-2i\Im\Ev$ at 25 interior points (``TR error'' is $\max|\psi_{\rm TR}+2i\Im\Ev|/\max|2\Im\Ev|$; the extinction residual measures how well the Love currents reproduce the field outside and zero inside):
 \begin{center}
 \begin{tabular}{lcc}
 \toprule
-medium & $\max|\psi_{\rm TR}+2i\Im\Ev|/\max|2\Im\Ev|$ inside $S$ & extinction-theorem residual\\
+medium & TR error inside $S$ & extinction residual\\
 \midrule
 lossless, reciprocal (TRI) & $7\times10^{-8}$ & $2\times10^{-7}$\\
 TRI, non-reciprocal & $1\times10^{-6}$ & $4\times10^{-6}$\\
@@ -449,7 +453,7 @@ gyrotropic (not TRI) & 1.24 & $1\times10^{-6}$\\
 \bottomrule
 \end{tabular}
 \end{center}
-The residuals of the TRI cases fall with quadrature refinement, tracking the extinction-theorem residual (at $120\times240$ they are $5\times10^{-6}$ and $6\times10^{-5}$). The failures are $O(1)$ and do not change. This supports two statements of the tutorial: that time reversal, not reciprocity, underlies the conjugate-field identity, and that the time-reversal recipe and the reciprocity recipe are distinct. In the TRI non-reciprocal medium the time-reversed field is exactly $-2i\Im\Ev$, yet the conjugate-field recipe reaches only 8--22\% of the maximum focal intensity (Table~\ref{tab:recipe}). Figure~\ref{fig:TRmaps} shows the comparison on a slice through the cluster.
+The residuals of the TRI cases fall with quadrature refinement, tracking the extinction-theorem residual (at $120\times240$ they are $5\times10^{-6}$ and $6\times10^{-5}$). The failures are $O(1)$ and do not change. This supports two statements of the tutorial: that time reversal, not reciprocity, underlies the conjugate-field identity, and that the time-reversal recipe and the reciprocity recipe are distinct. In the TRI non-reciprocal medium the time-reversed field is exactly $-2i\Im\Ev$. Yet, in the same medium, the conjugate-field recipe reaches only 8--22\% of the maximum focal intensity for the electric-current apertures of Table~\ref{tab:recipe}. Figure~\ref{fig:TRmaps} shows the comparison on a slice through the cluster.
 
 \begin{figure}[tb]
 \centering
@@ -463,7 +467,7 @@ With sources $s(\xv,t)$ on $A$ for $t\in[0,T]$, $\psi(\xv_0,t_0)=\int_0^T{\rm d}
 \begin{align}
     \max|\phi^{\rm T}\psi(\xv_0,t_0)|^2=\int_{t_0-T}^{t_0}{\rm d}\tau\int_A|\psi_0(\xv,\tau)|^2{\rm d}\xv,
 \end{align}
-which reduces to the window $[0,T]$ written in the tutorial when the focal time is the end of the source window, $t_0=T$.
+which reduces to the window $[0,T]$ written in the tutorial when the focal time is the end of the source window, $t_0=T$. By causality, the dipole must be fired at $(\xv_0,0)$, not at $(\xv_0,t_0)$ as the tutorial states. In the time domain the factors of $i$ of the $(\Ev,i\Hv)$ representation do not carry over, and mixed electric--magnetic blocks transpose with a sign; neither affects the bound, which uses only $\Gamma_{\rm ret}^{\rm T}$ applied to a fixed polarization.
 \numcheck{\code{spacetime\_complex\_media.py}: dispersive, lossy reciprocal dipole cluster, band-limited pulses; the time-reversed dipole response attains the rank-one maximum (ratio $1.0000000000$), which equals $\int_{t_0-T}^{t_0}$; for $t_0=1.3T$ the window $[0,T]$ would give $0.61$ of it}
 
 %=============================================================================
@@ -483,7 +487,8 @@ widths (Table~\ref{tab:widths}) & \code{focal\_plane\_fields.py} & $10^{-4}$ (ro
 VSW amplitudes, $P_{\rm in}$, $k^2/3\pi c$, $\Im\mathsf G_0$ & \code{fourpi\_spherical\_waves.py} & $10^{-10}$--$10^{-15}$\\
 super-oscillation penalties, $S_{\max}$ & \code{superoscillation.py} & $10^{-8}$\\
 space-time profiles & \code{spacetime\_focusing.py} & $10^{-14}$\\
-complex-media bound, recipes, TR identity & \code{complex\_media\_focusing.py} & $10^{-15}$ / $10^{-7}$\\
+complex-media bound, recipes, TR identity & \code{complex\_media\_focusing.py} & $10^{-15}$ / $10^{-6}$--$10^{-7}$\\
+space-time complex-media bound & \code{spacetime\_complex\_media.py} & $10^{-10}$\\
 \bottomrule
 \end{tabular}
 \end{center}

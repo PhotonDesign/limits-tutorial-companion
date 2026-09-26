@@ -94,7 +94,8 @@ def power_law_beam_ratio(n):
     """(2 pi c/k^2) eps0|E(0)|^2/P at 2pi for c_p ∝ (k_z/k)^n (xhat . e_p)^* (closed form):
     [1/(n+2) + 1/(n+4)]^2 / [1/(2n+3) + 1/(2n+5)].  n = -1 power-optimal (4/3), n = 0
     amplitude-optimal (135/128), n = 1/2 Dias & Garcia de Abajo's 'diffraction-limited
-    Gaussian' reference beam, n = -1/2 aplanatic lens with uniform pupil (Richards-Wolf)."""
+    Gaussian' reference beam.  (An aplanatic lens is NOT a member of this family: its TM
+    part lacks the cos(theta) of (I - khat khat) xhat; see aplanatic_per_power.)"""
     return (1 / (n + 2) + 1 / (n + 4))**2 / (1 / (2 * n + 3) + 1 / (2 * n + 5))
 
 
@@ -103,6 +104,27 @@ def power_law_beam_numeric(n, theta=np.pi / 2):
     c, vec = optimal_coefficients(khat, np.array([1, 0, 0], complex), "amplitude")
     w = np.abs(khat[:, 2])**n
     c, vec = c * w[:, None], vec * w[:, None]
+    E0 = field(np.zeros((1, 3)), khat, W, vec)[0]
+    return 2 * np.pi * abs(E0[0])**2 / power_z(khat, W, c)
+
+
+def aplanatic_per_power(theta):
+    """Aplanatic lens (sine condition), uniformly filled x-polarized pupil (Richards-Wolf):
+    E_inf ∝ sqrt(cos th) (cos ph e_th - sin ph e_ph).  Closed form
+    (2 pi c/k^2) eps0|E(0)|^2/P = I_a^2 / sin^2(theta),
+    I_a = (2/3)(1 - cos^{3/2}) + (2/5)(1 - cos^{5/2})  ->  (16/15)^2 = 1.1378 at 2pi."""
+    c = np.cos(theta)
+    Ia = 2 / 3 * (1 - c**1.5) + 2 / 5 * (1 - c**2.5)
+    return Ia**2 / np.sin(theta)**2
+
+
+def aplanatic_numeric(theta):
+    """Explicit-vector synthesis of the aplanatic-lens focus (independent of the closed form)."""
+    khat, TH, PH, W = cap_quadrature(theta, 400, 256)
+    eth = np.stack([np.cos(TH) * np.cos(PH), np.cos(TH) * np.sin(PH), -np.sin(TH)], 1)
+    eph = np.stack([-np.sin(PH), np.cos(PH), 0 * PH], 1)
+    vec = (np.cos(PH)[:, None] * eth - np.sin(PH)[:, None] * eph) * (np.cos(TH)**-0.5)[:, None]
+    c = np.einsum("nj,npj->np", vec, np.conj(polarization_basis(khat)))
     E0 = field(np.zeros((1, 3)), khat, W, vec)[0]
     return 2 * np.pi * abs(E0[0])**2 / power_z(khat, W, c)
 
@@ -153,10 +175,23 @@ def main(make_figure=True):
           f"{bound_power_inplane(np.pi/2)/(135/128):.4f} (vs 16/9 = {16/9:.4f} across different normalizations)")
 
     print("\nReference beams c_p ∝ (k_z/k)^n (x.e_p)^* at 2pi (per physical power):")
-    for n, name in [(-1, "power-optimal"), (-0.5, "aplanatic, uniform pupil"), (0, "amplitude-optimal"),
+    for n, name in [(-1, "power-optimal"), (-0.5, "family member n = -1/2"), (0, "amplitude-optimal"),
                     (0.5, "Dias2020 'Gaussian' reference"), (1, "c ∝ k_z/k")]:
         r_cf, r_num = power_law_beam_ratio(n), power_law_beam_numeric(n)
         print(f"  n = {n:+.1f} ({name:30s}): {r_cf:.6f} (numeric {r_num:.6f});  optimum / this = {(4/3)/r_cf:.4f}")
+    for s_ in (0.8, 1.0):
+        thv = np.arcsin(s_)
+        a_cf, a_num = aplanatic_per_power(thv), aplanatic_numeric(thv)
+        print(f"  aplanatic lens, uniform pupil, sin th = {s_:.1f}: {a_cf:.6f} (numeric {a_num:.6f});"
+              f" optimum / this = {bound_power_inplane(thv)/a_cf:.4f}")
+
+    khat, TH, PH, W = cap_quadrature(np.pi / 2, 300, 256)
+    c, vec = optimal_coefficients(khat, np.array([1, 0, 0], complex), "power")
+    vecH = np.einsum("np,npj->nj", c, np.cross(khat[:, None, :], polarization_basis(khat)))
+    E0 = field(np.zeros((1, 3)), khat, W, vec)[0]
+    H0 = field(np.zeros((1, 3)), khat, W, vecH)[0]
+    print(f"\n2pi power-optimal focus: Z0|H(0)|/|E(0)| = {np.linalg.norm(H0)/np.linalg.norm(E0):.6f} (3/4); "
+          f"H(0) = 0 at 4pi (odd in k_z)")
 
     if make_figure:
         import matplotlib

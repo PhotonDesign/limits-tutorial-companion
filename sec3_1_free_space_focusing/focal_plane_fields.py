@@ -67,6 +67,26 @@ def check_three_ways(n_pts=12, seed=3):
     return (np.abs(E_brute - E_semi).max() / scale, np.abs(E_closed - E_semi).max() / scale)
 
 
+def check_general(n_pts=8, seed=6):
+    """Brute force (explicit polarizations) vs 1D quadrature [eq. fields1D] at off-focal-plane
+    points, for several NAs, both normalizations, one- and two-sided excitation."""
+    rng = np.random.default_rng(seed)
+    rho, phi, z = rng.uniform(0, 2, n_pts), rng.uniform(0, 2 * np.pi, n_pts), rng.uniform(-1.5, 1.5, n_pts)
+    pts = np.stack([rho * np.cos(phi), rho * np.sin(phi), z], 1)
+    err = 0.0
+    for th in (0.4, 1.0, np.pi / 2):
+        for norm in ("power", "amplitude"):
+            for hem in ("one", "both"):
+                Eb = 0
+                for sgn in ((+1,) if hem == "one" else (+1, -1)):
+                    kh, _, _, W = cap_quadrature(th, 200, 128, sgn)
+                    c, vec = optimal_coefficients(kh, np.array([1, 0, 0], complex), norm)
+                    Eb = Eb + field(pts, kh, W, vec, k=K)
+                Es = np.stack(optimal_field_xpol(rho, phi, z, th, norm, hem, k=K), 1)
+                err = max(err, np.abs(Eb - Es).max() / np.abs(Es).max())
+    return err
+
+
 def check_zpol_closed(n_pts=12, seed=5):
     """2pi power-optimal beam with target zhat: brute force vs closed form."""
     rng = np.random.default_rng(seed)
@@ -124,6 +144,7 @@ def main(make_figure=True):
     e1, e2 = check_three_ways()
     print(f"2pi power: brute-force (explicit polarizations) vs 1D-quadrature: rel. err {e1:.1e}")
     print(f"2pi power: new closed form (with phi dependence) vs 1D-quadrature: rel. err {e2:.1e}")
+    print(f"general NA (0.39, 0.84, 1), z != 0, both normalizations, one/two-sided: brute force vs 1D quadrature, max rel. err {check_general():.1e}")
     print(f"2pi power, target zhat: closed form E_z = 2pi k^2 (j0 - j1/a), E_rho = -2pi i k^2 J2(a)/a vs brute force: rel. err {check_zpol_closed():.1e}")
     h1, h2 = check_half_of_4pi()
     print(f"z = 0 plane: |E_par(2pi) - E_par(4pi)/2| / |E| = {h1:.1e};  |E_z(4pi)|/|E| = {h2:.1e}")

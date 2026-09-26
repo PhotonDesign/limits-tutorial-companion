@@ -107,3 +107,14 @@ def test_spacetime_energy_weighted():
         assert q == pytest.approx(2 * j1(x) / x, abs=1e-10)
     for U in (0.5, 3.0, 15.0):
         assert st.energy_weighted_3d_quad(U) == pytest.approx(st.energy_weighted_3d(np.array([U]))[0], abs=1e-10)
+
+
+def test_reference_beams():
+    assert fib.aplanatic_per_power(np.pi / 2) == pytest.approx((16 / 15)**2, rel=1e-12)
+    assert fib.aplanatic_numeric(np.arcsin(0.8)) == pytest.approx(fib.aplanatic_per_power(np.arcsin(0.8)), rel=1e-8)
+    assert fib.power_law_beam_ratio(0.5) == pytest.approx(fib.power_law_beam_numeric(0.5), rel=1e-8)
+    assert (4 / 3) / fib.power_law_beam_ratio(0.5) == pytest.approx(1.435, abs=1e-3)
+
+
+def test_general_na_fields():
+    assert fpf.check_general(n_pts=4) < 1e-10

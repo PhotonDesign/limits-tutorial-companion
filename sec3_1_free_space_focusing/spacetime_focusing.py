@@ -9,12 +9,13 @@ Amplitude normalization (the tutorial's choice): c(k, omega) uniform on |k| <= |
   3. 3D vector case (tutorial equation after Fig. SpacetimeFocus):
         psi_3D(rho, 0) ∝ int_0^wm [j0(w rho/c) - j1(w rho/c)/(w rho/c)] dw
                        = (c / 2 rho) [ Si(U) + j1(U) ],   U = wm rho / c     (closed form, new)
-     This profile has NO zeros (Si(U) > 0 >= -|j1(U)| with Si > |j1| for all U > 0) and
-     decays as pi/(2U) without oscillation, so the two 1D features highlighted in the text
-     (faster side-lobe decay, doubled first-zero radius) do not carry over to 3D.
+     This profile has NO zeros (Si(U) - |j1(U)| >= 0.33 for U >= 0.5, and both are positive
+     below), and decays as [pi/2 - 2 cos(U)/U]/U: a positive pi/(2U) tail with an O(U^-2)
+     ripple (shallow minima at U = 6.88, 13.3, ...).  The two 1D features highlighted in the
+     text (faster side-lobe decay, doubled first-zero radius) do not carry over to 3D.
   4. The result depends on the normalization.  With physical energy normalization the
      optimal spectra are weighted (2D: c ∝ k/k_z per frequency; 3D: a ∝ omega^2), giving
-        2D line (t = 0):  J1(U)/U   vs single-frequency J0(U)   (first-zero ratio 1.593)
+        line focus (t = 0):  J1(U)/U   vs single-frequency J0(U)   (first-zero ratio 1.593)
         3D (t = 0):       [2 sin U - U cos U - Si(U)] / U^3  vs  j0 - j1/U.
 
 Run: python spacetime_focusing.py  (~3 s; writes figures/spacetime_focusing.*)
@@ -126,8 +127,13 @@ def main(make_figure=True):
     print(f"3. 3D: closed form (3/4)[Si(U)+j1(U)]/U vs quadrature: max abs diff {d:.1e}")
     U = np.linspace(1e-3, 200, 200001)
     p3 = psi3d_closed(U)
-    print(f"   min over U in (0, 200] of psi_3D(U,0): {p3.min():.4e} (> 0: no zeros);"
+    Uc = np.linspace(0.5, 500, 1000001)
+    gap = sici(Uc)[0] - np.abs(spherical_jn(1, Uc))
+    print(f"   no zeros: min_(U >= 0.5) [Si(U) - |j1(U)|] = {gap.min():.4f} > 0 (and Si, j1 > 0 for U < 0.5);"
           f"  U*psi at U=200: {200*p3[-1]:.4f} (-> 3pi/8 = {3*np.pi/8:.4f})")
+    Ul = np.linspace(1, 30, 290001); yl = psi3d_closed(Ul)
+    im = np.where((yl[1:-1] < yl[:-2]) & (yl[1:-1] < yl[2:]))[0] + 1
+    print(f"   shallow side-lobe minima (no zeros) at U = {np.round(Ul[im][:4], 3)}, psi/psi0 = {np.round(yl[im][:4], 4)}")
     h3 = fwhm_amplitude(psi3d_closed)
     h1 = fwhm_amplitude(single_freq_3d)
     print(f"   intensity half-width at half-max (units c/wm): space-time {h3:.4f}, single-frequency {h1:.4f}; ratio {h3/h1:.3f}")
@@ -139,14 +145,12 @@ def main(make_figure=True):
     xs2 = np.array([0.5, 2.0, 5.5, 9.0])
     q2 = np.array([energy_weighted_2d_quad(x) for x in xs2]) / energy_weighted_2d_quad(1e-9)
     c2 = 2 * j1(xs2) / xs2
-    print(f"   2D line: direct quadrature vs 2 J1(U)/U: max abs diff {np.abs(q2 - c2).max():.1e}")
+    print(f"   line focus: direct quadrature vs 2 J1(U)/U: max abs diff {np.abs(q2 - c2).max():.1e}")
     q3 = np.array([energy_weighted_3d_quad(u) for u in (0.5, 3.0, 7.0, 15.0)])
     c3 = energy_weighted_3d(np.array([0.5, 3.0, 7.0, 15.0]))
     print(f"   3D: direct quadrature vs 9[2 sin U - U cos U - Si(U)]/(2U^3): max abs diff {np.abs(q3 - c3).max():.1e}")
-    print(f"   2D line: J1(U)/U first zero {jn_zeros(1,1)[0]:.4f} vs J0 first zero {jn_zeros(0,1)[0]:.4f}: ratio {jn_zeros(1,1)[0]/jn_zeros(0,1)[0]:.4f}")
-    Ue = np.linspace(1e-2, 30, 30000)
-    fe = energy_weighted_3d(Ue)
-    ze = Ue[np.argmax(fe < 0)]
+    print(f"   line focus (2D propagation): J1(U)/U first zero {jn_zeros(1,1)[0]:.4f} vs J0 first zero {jn_zeros(0,1)[0]:.4f}: ratio {jn_zeros(1,1)[0]/jn_zeros(0,1)[0]:.4f}")
+    ze = brentq(lambda u: 2 * np.sin(u) - u * np.cos(u) - sici(u)[0], 3.0, 4.5)
     z1 = brentq(lambda u: single_freq_3d(np.array([u]))[0], 2, 3.5)
     print(f"   3D: omega^2-weighted profile has first zero at U = {ze:.4f} vs single-frequency {z1:.4f}: ratio {ze/z1:.3f}")
 

@@ -140,7 +140,11 @@ def part_A():
             pts, n, w = sphere_nodes(R, 60, 120, center=x0)
         lam, _, _, _ = focusing_efficiencies(med, pts, w, x0, phi)
         print(f"    R = {R:6.2f}: bound = {lam:.6e}   bound / (2 P_rad) = {lam/(2*P):.6f}")
-    print("    (-> 1 in the far zone, i.e. bound ∝ radiated power ∝ LDOS; >> 1 for near-field apertures)")
+    pts, w = patch_nodes(0.9, 0.6, 16)
+    lam, _, _, _ = focusing_efficiencies(med, pts, w, x0, phi)
+    print(f"    open near-field patch of Part A: bound / (2 P_rad) = {lam/(2*P):.4f}")
+    print("    (-> 1 for a closed far-zone aperture, i.e. bound ∝ radiated power ∝ LDOS; a closed near-field")
+    print("     aperture can give much more, while an open aperture captures less)")
     return results
 
 

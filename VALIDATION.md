@@ -11,7 +11,7 @@
 | [eq:TwoPiBound] U/P ≤ k²/(6πc) | 4/3 × ¼ confirmed | same |
 | "all polarizations equal at 2π" | True for power normalization only; amplitude normalization gives 3/4 (in-plane) vs 1/2 (z) | same |
 | ⚠ "power-normalized maximum exceeds the amplitude-normalized one by 1.77X" | 16/9 = 1.778, but the two maxima have different denominators (P vs Σ∫\|c\|²). At equal *physical* power the amplitude-optimal beam gives 135/128, so the advantage is 1.264 | same |
-| "exceeds the standard diffraction-limited Gaussian beam by 1.43X [Dias2020]" | 1.435 against Dias's reference beam c ∝ √(k_z/k); 1.10 against an aplanatic lens with uniform pupil | same |
+| "exceeds the standard diffraction-limited Gaussian beam by 1.43X [Dias2020]" | 1.435 against Dias's reference beam c ∝ √(k_z/k). An aplanatic lens with uniform pupil (Richards–Wolf) reaches (16/15)² = 1.138, so the optimum is 1.17× better at 2π. At NA 0.8 the aplanatic lens is only 1.7% below the optimum | same |
 | ⚠ FocusingFourPi table, paraxial row "0.66 sin²θ" | Eq. [eq:OptPowerNorm] gives exactly sin²θ paraxially (0.661 is its value at sin θ = 0.8) | same |
 | ⚠ [eq:E2TwoPi], 2π field intensity | Correct along the polarization axis only. The full focal-plane field is E_x = 2πk²[sin²φ j₀ + (3cos²φ−1) j₁/a], E_y = 2πk² sinφ cosφ j₂, E_z = −2πik² cosφ J₂/a, confirmed three independent ways to 2×10⁻¹⁴. The spot is elliptical; perpendicular to the polarization, \|E\|² ∝ (j₀ − j₁/a)², identical to the 4π profile | `focal_plane_fields.py` |
 | ⚠ Fig. PWFocusing(d): E_z map | E_z ∝ cos φ is antisymmetric in x (the published map is rotationally symmetric); \|E\|² is elliptical. Replacement panels are in `figures/tutorial_panels/` | same, `tutorial_figure_panels.py` |
@@ -23,7 +23,7 @@
 | Fig. Superres G⁴ law | S_max(u) = 1 − 4J₁²/[u²(J₀²+J₁²)] → u⁴/192 (paraxial scalar), brute force 10⁻⁸ | same |
 | ⚠ "a factor of 2 reduction and a corresponding 16X increase" | Exact: 9.3× (2D zero ring), 5.3× (1D line). The tutorial's own S_max curve gives ≈ 10× at G = 0.5 | same |
 | [eq:ST1d] | Confirmed vs direct quadrature (1.5×10⁻¹⁴); first zero doubles in 1D | `spacetime_focusing.py` |
-| ⚠ 3D space-time profile: "closed form in terms of Si"; side lobes and first zero | Closed form ∝ [Si(U) + j₁(U)]/U. It has no zeros and a non-oscillatory 1/ρ tail, so the two highlighted features hold in 1D only (amplitude normalization) | same |
+| ⚠ 3D space-time profile: "closed form in terms of Si"; side lobes and first zero | Closed form ∝ [Si(U) + j₁(U)]/U. It has no zeros (Si − \|j₁\| ≥ 0.33 for U ≥ 0.5) and a positive π/(2U) tail with an O(U⁻²) ripple (shallow minima at U = 6.88, 13.3). The two highlighted features hold for the line focus only (amplitude normalization) | same |
 
 ## Sec. 3.2 Complex media (`sec3_2_complex_media/complex_media_focusing.py`)
 
@@ -34,7 +34,7 @@ Medium: a random 3D cluster of electric point scatterers (Foldy–Lax). The four
 | [eq:CMFocusBound0] rank-one maximum ‖Γ₀ₐ†φ‖² | Iterative eigensolver on the full operator agrees to ≤ 2×10⁻¹⁵ |
 | [eq:CMTRRecipe] conjugated dipole field is optimal in reciprocal media, lossy or not, open or closed aperture | Efficiency 1.00000000 in all reciprocal cases |
 | Not optimal in non-reciprocal media; optimal after transposing the medium (Sec. 3.2.5) | Recipe efficiency 0.08–0.26; transposed-medium recipe 1.00000000 |
-| Far-field bound ∝ LDOS; near-field apertures larger | bound/(2P_rad) = 1.00012 at R = 30λ; 94.8 at R = 0.06λ |
+| Far-field bound ∝ LDOS; near-field apertures can be larger | Closed spheres: bound/(2P_rad) = 1.00012 at R = 30λ, 94.8 at R = 0.06λ. The open near-field patch gives 0.126 |
 | [eq:ConjFields] ψ_TR = −2i Im ψ, with **only TRI** required (PEC construction) and no far-field requirement | Scatterer 0.05λ from S: 7×10⁻⁸ (lossless reciprocal) and 1×10⁻⁶ (**TRI non-reciprocal**), converging with quadrature. Lossy: 0.45; gyrotropic: 1.24 |
 | Validity region of [eq:ConjFields] | Holds inside S; outside S the TR field is −Γs₀* (1.7×10⁻⁷) |
 | [eq:CMSTBound] space-time bound (`spacetime_complex_media.py`) | Time-reversed dipole response attains the maximum (1.0000000000) in a dispersive lossy medium; the bound is ∫ over [t₀−T, t₀] (the printed [0,T] holds for t₀ = T; for t₀ = 1.3T it would give 0.61) |
