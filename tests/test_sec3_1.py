@@ -46,6 +46,7 @@ def test_power_formula():
 def test_2pi_closed_form_fields():
     e_brute, e_closed = fpf.check_three_ways(n_pts=6)
     assert e_brute < 1e-10 and e_closed < 1e-10
+    assert fpf.check_zpol_closed(n_pts=6) < 1e-10
     h1, h2 = fpf.check_half_of_4pi(n_pts=6)
     assert h1 < 1e-12 and h2 < 1e-12
 

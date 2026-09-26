@@ -198,3 +198,13 @@ def field_amp_closed_inplane(rho, phi, sin_theta, k=1.0):
 def field_amp_2pi_Ez_closed(rho, phi, k=1.0):
     a = k * np.asarray(rho, float)
     return -2j * np.pi * k**2 * np.cos(phi) * spherical_jn(2, a) / a
+
+
+def field_2pi_power_zpol_closed(rho, phi, k=1.0):
+    """Closed-form focal-plane field of the 2pi power-optimal beam with target zhat:
+        E_z = 2 pi k^2 [j0(a) - j1(a)/a],   E_rho = -2 pi i k^2 J2(a)/a  (radial),
+    rotationally symmetric; the second hemisphere (4pi) cancels E_rho and doubles E_z."""
+    a = k * np.asarray(rho, float)
+    Ez = 2 * np.pi * k**2 * (spherical_jn(0, a) - j1_over(a))
+    Erho = -2j * np.pi * k**2 * J2_over(a)
+    return Erho * np.cos(phi), Erho * np.sin(phi), Ez

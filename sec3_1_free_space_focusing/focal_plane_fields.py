@@ -25,7 +25,7 @@ import numpy as np
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from tutorial_tools.angular_spectrum import cap_quadrature, optimal_coefficients, field
-from tutorial_tools.focusing import (optimal_field_xpol, field_2pi_power_closed,
+from tutorial_tools.focusing import (optimal_field_xpol, field_2pi_power_closed, field_2pi_power_zpol_closed,
                                      intensity_paraxial, intensity_2pi_tutorial,
                                      intensity_4pi_perp, intensity_4pi_par,
                                      half_max_radius, first_minimum)
@@ -65,6 +65,19 @@ def check_three_ways(n_pts=12, seed=3):
     E_closed = np.stack(field_2pi_power_closed(rho, phi, k=K), 1)
     scale = np.abs(E_semi).max()
     return (np.abs(E_brute - E_semi).max() / scale, np.abs(E_closed - E_semi).max() / scale)
+
+
+def check_zpol_closed(n_pts=12, seed=5):
+    """2pi power-optimal beam with target zhat: brute force vs closed form."""
+    rng = np.random.default_rng(seed)
+    rho = rng.uniform(0, 3, n_pts)
+    phi = rng.uniform(0, 2 * np.pi, n_pts)
+    pts = np.stack([rho * np.cos(phi), rho * np.sin(phi), 0 * rho], 1)
+    kh, _, _, W = cap_quadrature(np.pi / 2, 300, 256)
+    c, vec = optimal_coefficients(kh, np.array([0, 0, 1], complex), "power")
+    E_brute = field(pts, kh, W, vec, k=K)
+    E_closed = np.stack(field_2pi_power_zpol_closed(rho, phi, k=K), 1)
+    return np.abs(E_brute - E_closed).max() / np.abs(E_closed).max()
 
 
 def check_half_of_4pi(n_pts=12, seed=4):
@@ -111,6 +124,7 @@ def main(make_figure=True):
     e1, e2 = check_three_ways()
     print(f"2pi power: brute-force (explicit polarizations) vs 1D-quadrature: rel. err {e1:.1e}")
     print(f"2pi power: new closed form (with phi dependence) vs 1D-quadrature: rel. err {e2:.1e}")
+    print(f"2pi power, target zhat: closed form E_z = 2pi k^2 (j0 - j1/a), E_rho = -2pi i k^2 J2(a)/a vs brute force: rel. err {check_zpol_closed():.1e}")
     h1, h2 = check_half_of_4pi()
     print(f"z = 0 plane: |E_par(2pi) - E_par(4pi)/2| / |E| = {h1:.1e};  |E_z(4pi)|/|E| = {h2:.1e}")
 

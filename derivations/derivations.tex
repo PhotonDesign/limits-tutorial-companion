@@ -223,6 +223,13 @@ Along the polarization axis ($\phi=0$) and perpendicular to it ($\phi=\pi/2$):
 \end{align}
 The first is the expression printed in the tutorial, which is therefore the cut along the polarization axis. The second has \emph{exactly the same shape} as the $4\pi$ profile in the plane perpendicular to the polarization (Sec.~\ref{sec:4pi}). The $2\pi$-optimal spot is elliptical: its width along the polarization axis exceeds the paraxial Airy width, while its width perpendicular to the polarization is already the $4\pi$ value (Table~\ref{tab:widths}).
 
+\paragraph{Target $\qhat=\zhat$.} The same steps with $(\II-\khat\khat^{\rm T})\zhat=(-\sin\theta'\cos\theta'\cos\varphi',-\sin\theta'\cos\theta'\sin\varphi',\sin^2\theta')$ give a rotationally symmetric focal-plane field,
+\begin{align}
+    E_z=2\pi k^2\Big[j_0(a)-\frac{j_1(a)}{a}\Big],\qquad E_\rho=-2\pi ik^2\,\frac{J_2(a)}{a},
+\end{align}
+so $|\Ev|^2\propto(j_0-j_1/a)^2+(J_2/a)^2$. The radial component is odd in $\hat k_z$ and is cancelled by the second hemisphere. This is why only $4\pi$ excitation gives a purely $z$-polarized focal plane, as stated in the tutorial.
+\numcheck{brute force vs.\ closed form, $2\times10^{-14}$}
+
 \paragraph{Amplitude normalization, any NA.} The extra $\cos\theta'$ turns the integrals into elementary Bessel integrals ($s=\sin\theta$, Bessel arguments $as$):
 \begin{align}
     E_x = \pi k^2\Big[(2s-s^3)\frac{J_1}{a}+2s^2\frac{J_2}{a^2}+\cos2\phi\,s^3\frac{J_3}{a}\Big],\qquad
