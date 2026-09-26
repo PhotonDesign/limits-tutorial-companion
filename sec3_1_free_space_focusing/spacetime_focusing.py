@@ -77,6 +77,24 @@ def energy_weighted_3d(U):
     return np.where(U > 1e-3, 4.5 * (2 * np.sin(U) - U * np.cos(U) - si) / np.where(U > 0, U, 1)**3, 1.0)
 
 
+def energy_weighted_2d_quad(x, wm=1.0, c=1.0, n=300):
+    """2D line, energy normalization: int_0^wm dw int_{-w/c}^{w/c} dk (k0/kz) e^{ikx},
+    k0 = w/c; substituting k = k0 sin(t) removes the edge singularity."""
+    u, wu = leggauss(n)
+    w = 0.5 * wm * (u + 1); ww = 0.5 * wm * wu
+    t = 0.5 * np.pi * u; wt = 0.5 * np.pi * wu            # t in (-pi/2, pi/2)
+    k0 = w / c
+    inner = np.sum(wt[None, :] * k0[:, None] * np.cos(k0[:, None] * np.sin(t)[None, :] * x), axis=1)
+    return np.sum(ww * inner)
+
+
+def energy_weighted_3d_quad(U, n=400):
+    """(9/2) (1/U^3) int_0^U u^2 (j0 - j1/u) du, normalized to 1 at U = 0."""
+    x, w = leggauss(n)
+    u = 0.5 * U * (x + 1); ww = 0.5 * U * w
+    return 4.5 * np.sum(ww * u**2 * (spherical_jn(0, u) - spherical_jn(1, u) / u)) / U**3
+
+
 def fwhm_amplitude(f, umax=6):
     """half width at which the FIELD falls to 1/sqrt(2) (intensity half max)."""
     g = lambda u: f(np.array([u]))[0]**2 - 0.5
@@ -118,6 +136,13 @@ def main(make_figure=True):
     fs = lambda x: np.sinc(x / np.pi)
     print(f"   1D intensity HWHM: space-time {fwhm_amplitude(f1):.4f}, single-frequency {fwhm_amplitude(fs):.4f}")
     print("4. Energy-normalized alternatives:")
+    xs2 = np.array([0.5, 2.0, 5.5, 9.0])
+    q2 = np.array([energy_weighted_2d_quad(x) for x in xs2]) / energy_weighted_2d_quad(1e-9)
+    c2 = 2 * j1(xs2) / xs2
+    print(f"   2D line: direct quadrature vs 2 J1(U)/U: max abs diff {np.abs(q2 - c2).max():.1e}")
+    q3 = np.array([energy_weighted_3d_quad(u) for u in (0.5, 3.0, 7.0, 15.0)])
+    c3 = energy_weighted_3d(np.array([0.5, 3.0, 7.0, 15.0]))
+    print(f"   3D: direct quadrature vs 9[2 sin U - U cos U - Si(U)]/(2U^3): max abs diff {np.abs(q3 - c3).max():.1e}")
     print(f"   2D line: J1(U)/U first zero {jn_zeros(1,1)[0]:.4f} vs J0 first zero {jn_zeros(0,1)[0]:.4f}: ratio {jn_zeros(1,1)[0]/jn_zeros(0,1)[0]:.4f}")
     Ue = np.linspace(1e-2, 30, 30000)
     fe = energy_weighted_3d(Ue)

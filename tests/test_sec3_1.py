@@ -97,3 +97,12 @@ def test_amplitude_closed_forms(s):
     assert np.abs(Ex - Exc).max() < 1e-10 and np.abs(Ey - Eyc).max() < 1e-10
     if s == 1.0:
         assert np.abs(Ez - F.field_amp_2pi_Ez_closed(rho, phi)).max() < 1e-10
+
+
+def test_spacetime_energy_weighted():
+    from scipy.special import j1
+    for x in (0.5, 2.0, 9.0):
+        q = st.energy_weighted_2d_quad(x) / st.energy_weighted_2d_quad(1e-9)
+        assert q == pytest.approx(2 * j1(x) / x, abs=1e-10)
+    for U in (0.5, 3.0, 15.0):
+        assert st.energy_weighted_3d_quad(U) == pytest.approx(st.energy_weighted_3d(np.array([U]))[0], abs=1e-10)
