@@ -6,6 +6,7 @@
 #   script   path relative to the repository root
 #   claims   tutorial equations / statements the script tests (tutorial LaTeX labels in [])
 #   owner    "ODM" or "FM" (which author's section)
+#   args     optional list of command-line arguments passed to the script
 
 [[check]]
 id = "power-formula"
@@ -236,4 +237,12 @@ id = "material-sum-rules"
 section = "2.3-2.7"
 script = "sec2_material_bounds/sum_rules_and_estimates.py"
 claims = ["f-sum rule", "loss bound", "TRK", "numbers quoted in Ch. 2"]
+owner = "FM"
+
+[[check]]
+id = "drude-lorentz-sandbox"
+section = "2.1-2.2"
+script = "sec2_material_bounds/drude_lorentz_sandbox.py"
+args = ["--snapshot"]
+claims = ["[eq:f-sum rule]", "[eq:max_n] (saturated by one lossless oscillator)", "[eq:low_epsilon_bound]", "interactive sandbox (snapshot mode here)"]
 owner = "FM"

@@ -29,7 +29,7 @@ def main():
     summary = []
     for c in checks:
         t0 = time.time()
-        p = subprocess.run([sys.executable, os.path.join(ROOT, c["script"])], cwd=ROOT,
+        p = subprocess.run([sys.executable, os.path.join(ROOT, c["script"]), *c.get("args", [])], cwd=ROOT,
                            capture_output=True, text=True, env=env)
         dt = time.time() - t0
         with open(os.path.join(ROOT, "outputs", f"{c['id']}.txt"), "w") as f:

@@ -30,6 +30,7 @@ cd derivations && latexmk -pdf derivations.tex
 |:--|:--|:--|
 | 1.1–1.7 | `sec1_fundamental_principles/*.py` | equivalence principle, Kramers–Kronig relations, passivity/Herglotz representations and sum rules, Rayleigh-quotient theorems |
 | 2.1–2.7 | `sec2_material_bounds/*.py` | maximum refractive index, dispersion/bandwidth bounds on ε, material sum rules and estimates |
+| 2.1–2.2 | `sec2_material_bounds/drude_lorentz_sandbox.py` | interactive Drude–Lorentz sandbox: f-sum rule, [eq:max_n] and [eq:low_epsilon_bound] for a live one-oscillator model (snapshot mode in `run_all.py`) |
 | 3.1.2 | `sec3_1_free_space_focusing/power_normalization_check.py` | plane-wave power formula, by direct Poynting integration |
 | 3.1.2 | `sec3_1_free_space_focusing/focal_intensity_bounds.py` | focal-intensity maxima for power/amplitude normalization; optimal polarization; reference beams |
 | 3.1.2–3 | `sec3_1_free_space_focusing/focal_plane_fields.py` | optimal fields across the focal plane (closed forms, anisotropy); FWHM and first zeros |
@@ -48,6 +49,10 @@ cd derivations && latexmk -pdf derivations.tex
 | 5.2.1 | `sec5_local_constraints/extinction_sum_rules.py` | extinction sum rules (static and high-frequency) |
 | 5.2.3 | `sec5_local_constraints/tmatrix_oscillators.py` | oscillator representation of the T-matrix and its sum rules |
 | 5.4–5.9 | `sec5_4_9_scattering_limits/*.py` | polarizability and Q limits, spherical-wave sum rules, Bode–Fano/Rozanov, cloaking bandwidth, sensing limits, delay–bandwidth |
+
+### Interactive sandbox
+
+`sec2_material_bounds/drude_lorentz_sandbox.py` lets you drag the resonance frequency ω₀, plasma frequency ω_p (the f-sum budget), damping γ, a Drude share of the oscillator strength, and the fractional bandwidth B of a one-oscillator medium, and see Re ε, Im ε and two of the tutorial's bounds update live. Panel (c) places the model in the index–dispersion plane against [eq:max_n]. A single lossless oscillator below resonance sits exactly on that bound, so raising the index costs dispersion. Panels (a) and (d) compare how closely Re ε can track a target below ε₀ across the band with [eq:low_epsilon_bound]. Panel (b) shows Im ε and, for γ > 0, the f-sum ratio ∫ω Im ε dω/(πω_p²/2) computed by quadrature. Run it with `python sec2_material_bounds/drude_lorentz_sandbox.py`, which needs a GUI Matplotlib backend. With `--snapshot`, or under a non-interactive backend, it prints the checks and writes `figures/sec2_drude_lorentz_sandbox_{index,loweps}.png`.
 
 `registry.toml` lists every check with the tutorial equations it tests; add a new check by adding an entry there. `VALIDATION.md` summarizes the numerical outcomes.
 
