@@ -6,6 +6,9 @@ authors:
   - family-names: Miller
     given-names: Owen D.
     affiliation: Yale University
+  - family-names: Monticone
+    given-names: Francesco
+    affiliation: Cornell University
 repository-code: "https://github.com/PhotonDesign/limits-tutorial-companion"
 license:
   - MIT
