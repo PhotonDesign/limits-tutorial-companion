@@ -1,6 +1,6 @@
 # License for the derivations and figures
 
-Copyright (c) 2026 Owen D. Miller
+Copyright (c) 2026 Owen D. Miller and Francesco Monticone
 
 The derivation notes (`derivations/`, including `derivations.tex` and `derivations.pdf`) and the figures (`figures/`) are licensed under the Creative Commons Attribution 4.0 International License (CC BY 4.0). You may share and adapt them for any purpose, provided you give appropriate credit, link to the license, and indicate whether changes were made.
 
