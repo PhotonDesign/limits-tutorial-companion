@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use these codes or derivations, please cite the tutorial below."
+type: software
+title: "Companion codes and derivations for 'Fundamental limits in photonics and electromagnetics: a tutorial'"
+authors:
+  - family-names: Miller
+    given-names: Owen D.
+    affiliation: Yale University
+repository-code: "https://github.com/PhotonDesign/limits-tutorial-companion"
+license:
+  - MIT
+  - CC-BY-4.0
+preferred-citation:
+  type: article
+  title: "Fundamental limits in photonics and electromagnetics: a tutorial"
+  authors:
+    - family-names: Miller
+      given-names: Owen D.
+      affiliation: Yale University
+    - family-names: Monticone
+      given-names: Francesco
+      affiliation: Cornell University
+  year: 2026
+  journal: "arXiv preprint arXiv:2605.24738"
+  doi: "10.48550/arXiv.2605.24738"
+  url: "https://arxiv.org/abs/2605.24738"

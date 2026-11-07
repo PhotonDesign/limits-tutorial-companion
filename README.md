@@ -64,4 +64,8 @@ Time dependence is e^{−iωt}. Codes use natural units ε₀ = μ₀ = c = Z₀
 
 ## Citation
 
-If you use these codes, please cite the tutorial: O. D. Miller and F. Monticone, "Fundamental limits in photonics and electromagnetics: a tutorial" (2026).
+If you use these codes or derivations, please cite the tutorial: O. D. Miller and F. Monticone, "Fundamental limits in photonics and electromagnetics: a tutorial," arXiv:2605.24738 (2026), https://arxiv.org/abs/2605.24738. `CITATION.cff` has the same reference in machine-readable form (GitHub's "Cite this repository" button).
+
+## License
+
+The code is released under the MIT License (`LICENSE`). The derivation notes (`derivations/`) and the figures (`figures/`) are released under CC BY 4.0 (`LICENSE-CC-BY-4.0.md`).
